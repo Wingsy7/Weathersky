@@ -1,0 +1,181 @@
+/* Palette inspirée d'un coucher de soleil */
+:root {
+    --bleu-nuit: #1E2A44;       /* Fond sombre, bleu profond */
+    --bleu-crepuscule: #3B4C6A; /* Bleu moyen pour conteneurs */
+    --violet-sombre: #4A3C6B;   /* Accent subtil */
+    --orange-coucher: #F28C38;  /* Touche chaude pour boutons ou accents */
+    --gris-nuage: #D9D9D9;      /* Texte clair pour lisibilité */
+}
+
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bleu-nuit);
+    padding: 30px;
+    text-align: center;
+    color: var(--gris-nuage);
+}
+
+/* Conteneur principal */
+.main-part {
+    background: var(--bleu-crepuscule);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Titres */
+h1, h2 {
+    color: var(--gris-nuage);
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px var(--violet-sombre);
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+/* Formulaire département */
+#form-departement {
+    margin: 20px 0;
+}
+
+#departement {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 1rem;
+    margin: 0 auto 10px auto;
+    border: 2px solid var(--orange-coucher);
+    border-radius: 8px;
+    background: var(--bleu-crepuscule);
+    color: var(--gris-nuage);
+}
+
+/* Bouton */
+button {
+    background: var(--orange-coucher);
+    color: var(--bleu-nuit);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: var(--violet-sombre);
+    color: var(--gris-nuage);
+}
+
+/* Formulaire recherche ville */
+#form-ville {
+    position: relative;
+    margin: 20px 0;
+}
+
+#ville-ville {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid var(--orange-coucher);
+    border-radius: 8px;
+    background: var(--bleu-crepuscule);
+    color: var(--gris-nuage);
+}
+
+#suggestions {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 300px;
+    text-align: left;
+    background: var(--bleu-crepuscule);
+    border: 1px solid var(--orange-coucher);
+    border-top: none;
+    position: absolute;
+    z-index: 999;
+    border-radius: 0 0 8px 8px;
+}
+
+#suggestions li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+#suggestions li:hover {
+    background: var(--violet-sombre);
+}
+
+/* Carte */
+#map {
+    height: 300px;
+    margin: 30px auto;
+    width: 90%;
+    border: 2px solid var(--orange-coucher);
+    border-radius: 10px;
+    background: var(--bleu-nuit); /* Fond sombre pour la carte */
+}
+
+/* Prévisions */
+#previsions {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.previsions-wrap {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.day-card {
+    background: var(--bleu-crepuscule);
+    border-radius: 10px;
+    padding: 15px;
+    width: 180px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: var(--gris-nuage);
+}
+
+/* Conteneur des jours */
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.day {
+    background: var(--bleu-crepuscule);
+    border-radius: 10px;
+    padding: 15px;
+    width: 230px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: var(--gris-nuage);
+}
+
+.day img {
+    width: 60px;
+    height: 60px;
+    filter: brightness(1.2); /* Légère amélioration pour visibilité */
+}
+
+.day h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: var(--orange-coucher);
+}
+
+.day p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
