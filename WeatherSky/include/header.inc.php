@@ -1,57 +1,67 @@
 <?php
 declare(strict_types = 1);
 
-// Constantes
-define("DEFAULT_TD_NUMBER", "TD 5");
-define("DEFAULT_TD_SELECTED", 5);
-define("MAX_TD_NUMBER", 9);
-define("FIRST_EXERCISE", 1);
 define('DEFAULT_THEME', 'jour');
 
-/**
- * Génère l'en-tête HTML avec le bon thème CSS.
- */
-function en_tete(string $title = "TD - PHP", bool $close_head = true): string {
+function en_tete(string $title = "WeatherSky", bool $close_head = true): string {
     $style = getStyle();
-    return "
-<!DOCTYPE html>
-<html lang=\"fr\">
-<head>
-    <meta charset=\"UTF-8\" />
-    <meta name=\"author\" content=\"Cozma\" />
-    <meta name=\"description\" content=\"TD sur le PHP\" />
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
-    <title>$title</title>
-    <link rel=\"icon\" type=\"image/x-icon\" href=\"pictures/favicon.png\" />
-    <link rel=\"stylesheet\" href=\"$style\" />
-</head>
-<body>
-    <header>
-        " . TD_actuel_selectionné(DEFAULT_TD_SELECTED) . "
-        " . afficherMenu(getNomPageActive()) . "
-    </header>";
+    error_log("Style chargé : $style");
+    $html = "
+    <!DOCTYPE html>
+    <html lang=\"fr\">
+    <head>
+        <meta charset=\"UTF-8\" />
+        <meta name=\"author\" content=\"Cozma\" />
+        <meta name=\"description\" content=\"Projet météo\" />
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
+        <title>$title</title>
+        <link rel=\"icon\" type=\"image/x-icon\" href=\"photo/favicon.png\" />
+        <link id=\"theme\" rel=\"stylesheet\" href=\"$style?v=" . time() . "\" />
+        <link href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined\" rel=\"stylesheet\" />
+        <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 48;
+            vertical-align: middle;
+            font-size: 1.5em;
+        }
+        </style>
+    </head>
+    <body>
+        <header>
+            " . navigation() . "
+        </header>";
+    error_log("En-tête généré");
+    return $html;
 }
 
-function getNomPageActive(): string {
-    return basename($_SERVER["PHP_SELF"], ".php");
-}
-
-/**
- * Affiche la navigation principale avec le bouton de bascule de thème.
- */
-function TD_actuel_selectionné(int $tab_number_selected = DEFAULT_TD_SELECTED): string {
+function navigation(): string {
     $theme = getCurrentTheme();
     $themeTexte = ($theme === 'jour') ? 'Mode Nuit 🌙' : 'Mode Jour ☀️';
     $themeLien = ($theme === 'jour') ? 'nuit' : 'jour';
 
+    $currentPage = basename($_SERVER['PHP_SELF']);
+    error_log("Page actuelle : $currentPage");
+
     $s = "
 <nav id=\"header-nav\">
-    <ul class=\"header-ul\">";
-    
- 
-    
-    // Bouton de bascule de thème
-    $s .= "\n<li class=\"header-li\">
+    <a href=\"index.php\" class=\"logo-link\">
+        <img src=\"logo.png\" alt=\"Logo WeatherSky\" class=\"site-logo\">
+    </a>
+    <ul class=\"header-ul\">
+        <li class=\"header-li" . ($currentPage === 'index.php' ? ' current-page' : '') . "\">
+            <a href=\"index.php\">Accueil</a>
+        </li>
+        <li class=\"header-li" . ($currentPage === 'statistique.php' ? ' current-page' : '') . "\">
+            <a href=\"statistique.php\">Statistique</a>
+        </li>
+        <li class=\"header-li" . ($currentPage === 'map.php' ? ' current-page' : '') . "\">
+            <a href=\"map.php\">Carte</a>
+        </li>
+        <li class=\"header-li\">
             <a href=\"?theme=$themeLien\">$themeTexte</a>
         </li>
     </ul>
@@ -60,53 +70,20 @@ function TD_actuel_selectionné(int $tab_number_selected = DEFAULT_TD_SELECTED):
     return $s;
 }
 
-
-/**
- * Retourne le thème actuel (cookie ou GET) ou le défaut.
- */
 function getCurrentTheme(): string {
     $theme = $_GET['theme'] ?? $_COOKIE['theme'] ?? DEFAULT_THEME;
+    error_log("Thème sélectionné : $theme");
     return in_array($theme, ['jour', 'nuit']) ? $theme : DEFAULT_THEME;
 }
 
-/**
- * Retourne le chemin du fichier CSS approprié.
- */
 function getStyle(): string {
     $theme = getCurrentTheme();
-    setcookie('theme', $theme, time() + 30 * 24 * 3600, '/'); // Cookie valable 30 jours
-    return ($theme === 'nuit') ? "css/dark-style.css" : "css/styles.css";
-}
-
-/**
- * Génère la navigation latérale des exercices.
- */
-function nav_exercice(int $ex_num = FIRST_EXERCISE): string {
-    $s = "
-<nav id=\"side-nav\">
-    <ul class=\"side-ul\">
-        <li class=\"side-h2\">Sommaire</li>";
-    
-    for ($cur_ex = 1; $cur_ex <= $ex_num; $cur_ex++) {
-        $s .= "\n<li class=\"side-li\"><a href=\"#exercice-$cur_ex\">Exercice $cur_ex</a></li>";
-    }
-    
-    $s .= "
-    </ul>
-</nav>";
-    return $s;
+    setcookie('theme', $theme, time() + 30 * 24 * 3600, '/');
+    $style = ($theme === 'nuit') ? "css/dark-style.css" : "css/style.css";
+    error_log("Style sélectionné : $style");
+    return $style;
 }
 ?>
-
-
-
-
-
-
-
-
-
-
 
 
 

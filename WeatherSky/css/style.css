@@ -1,175 +1,351 @@
-/* Palette de bleus pastel */
-:root {
-    --bleu-ciel: #B3CDE0;      /* Fond clair */
-    --bleu-poudre: #D6E2E9;    /* Très clair, pour fonds secondaires */
-    --bleu-lagon: #89B0C9;     /* Moyen, pour accents */
-    --bleu-nuage: #E6ECEF;     /* Presque blanc, pour légèreté */
-    --bleu-ardoise: #6487A6;   /* Plus foncé, pour texte ou bordures */
+/* Réinitialisation et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Style général */
 body {
-    font-family: Arial, sans-serif;
-    background: var(--bleu-poudre);
-    padding: 30px;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #e6f0fa !important; /* Bleu clair, forcé */
+    color: #333;
+    padding-top: 80px; /* Espace pour la navigation fixe */
+}
+
+/* En-tête */
+header {
+    background: linear-gradient(135deg, #1e90ff, #00b7eb);
+    padding: 1rem;
     text-align: center;
-    color: var(--bleu-ardoise);
-}
-
-/* Conteneur principal */
-.main-part {
-    background: var(--bleu-nuage);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-/* Titres */
-h1, h2 {
-    color: var(--bleu-ardoise);
-}
-
-h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 1.5rem;
-    margin: 20px 0;
-}
-
-/* Formulaire département */
-#form-departement {
-    margin: 20px 0;
-}
-
-#departement {
-    display: block;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    font-size: 1rem;
-    margin: 0 auto 10px auto;
-    border: 2px solid var(--bleu-lagon);
-    border-radius: 8px;
-    background: var(--bleu-nuage);
-    color: var(--bleu-ardoise);
+    z-index: 1000;
 }
 
-button {
-    background: var(--bleu-lagon);
-    color: white;
+/* Navigation */
+#header-nav {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 auto;
+    max-width: 1200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between; /* Alignement à gauche pour le logo, à droite pour le formulaire */
+    align-items: center; /* Centre verticalement les éléments */
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding-left: 15px; /* Espacement à gauche */
+}
+
+.site-logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px; /* Espacement entre le logo et le texte, si texte ajouté */
+}
+
+.header-ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.header-li a {
+    text-decoration: none;
+    color: #004aad;
+    font-weight: bold;
+    font-size: 1.1rem;
     padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
+    transition: color 0.3s, background 0.3s;
+    border-radius: 5px;
+}
+
+.header-li a:hover {
+    color: #fff;
+    background: #00b7eb;
+}
+
+.header-li.current-page a {
+    color: #fff;
+    background: #00b7eb;
+}
+
+/* Titre principal */
+.site-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    font-size: 2.5rem;
+    color: #004aad;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Formulaire de mode sombre */
+.display-mode-form {
+    position: relative; /* Changé de absolute à relative pour s'intégrer au flex */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #004aad;
+    padding-right: 15px; /* Espacement à droite */
+}
+
+.display-mode-form label {
+    cursor: pointer;
+}
+
+.display-mode-form input[type="checkbox"] {
+    appearance: none;
+    width: 2rem;
+    height: 1rem;
+    background: #ccc;
+    border-radius: 1rem;
+    position: relative;
     cursor: pointer;
     transition: background 0.3s;
 }
 
-button:hover {
-    background: var(--bleu-ardoise);
-}
-
-/* Formulaire recherche ville */
-#form-ville {
-    position: relative;
-    margin: 20px 0;
-}
-
-#ville-ville {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    font-size: 1rem;
-    border: 2px solid var(--bleu-lagon);
-    border-radius: 8px;
-    background: var(--bleu-nuage);
-    color: var(--bleu-ardoise);
-}
-
-#suggestions {
-    list-style: none;
-    margin: 0 auto;
-    padding: 0;
-    width: 300px;
-    text-align: left;
-    background: var(--bleu-nuage);
-    border: 1px solid var(--bleu-lagon);
-    border-top: none;
+.display-mode-form input[type="checkbox"]::before {
+    content: '';
     position: absolute;
-    z-index: 999;
-    border-radius: 0 0 8px 8px;
+    width: 0.8rem;
+    height: 0.8rem;
+    background: #fff;
+    border-radius: 50%;
+    top: 0.1rem;
+    left: 0.1rem;
+    transition: transform 0.3s;
 }
 
-#suggestions li {
-    padding: 8px;
-    cursor: pointer;
+.display-mode-form input[type="checkbox"]:checked {
+    background: #00b7eb;
 }
 
-#suggestions li:hover {
-    background: var(--bleu-ciel);
+.display-mode-form input[type="checkbox"]:checked::before {
+    transform: translateX(1rem);
 }
 
-/* Carte */
-#map {
-    height: 300px;
-    margin: 30px auto;
-    width: 90%;
-    border: 2px solid var(--bleu-lagon);
+/* Carrousel */
+.carousel {
+    max-width: 1200px; /* Augmenté pour un carrousel plus large */
+    margin: 2rem auto;
+    position: relative;
+    overflow: hidden;
     border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Prévisions */
-#previsions {
-    margin-top: 40px;
+.carousel-inner {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center; /* Centre les images */
+}
+
+.carousel-item img {
+    width: 100%;
+    max-width: 1100px; /* Augmenté pour des images plus grandes */
+    height: 600px; /* Augmenté pour des images plus hautes */
+    object-fit: cover;
+    display: block;
+    border-radius: 5px;
+}
+
+/* Pied de page */
+footer {
+    background: #004aad;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    body {
+        padding-top: 120px; /* Plus d’espace sur mobile */
+    }
+
+    .site-title {
+        font-size: 1.8rem;
+    }
+
+    .carousel {
+        max-width: 90%; /* Ajusté pour mobile */
+    }
+
+    .carousel-item img {
+        max-width: 100%;
+        height: 350px; /* Ajusté pour mobile */
+    }
+
+    #header-nav {
+        padding: 10px;
+        flex-direction: column; /* Empile les éléments sur mobile */
+        align-items: flex-start; /* Aligne à gauche */
+    }
+
+    .logo-link {
+        padding-left: 10px; /* Ajustement pour mobile */
+    }
+
+    .header-ul {
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 10px; /* Espacement après le logo */
+    }
+
+    .header-li a {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+
+    .display-mode-form {
+        padding-right: 10px; /* Ajustement pour mobile */
+        padding-top: 10px; /* Espacement après la navigation */
+    }
+}
+
+.main-part h1 {
+    font-size: 1.5rem;
+}
+
+.main-part p {
+    font-size: 1rem;
+}
+
+.chart-container img {
+    max-width: 90%;
+}
+
+.main-part a {
+    font-size: 1rem;
+    padding: 8px 15px;
+}
+
+.main-part a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #004aad;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 1rem auto;
+    background: #fff;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+/* Styles pour la page NASA et géolocalisation */
+.main-part section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-part section h2 {
+    margin-bottom: 1rem;
+    color: #004aad;
+    font-size: 1.5rem;
     text-align: center;
 }
 
-.previsions-wrap {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.day-card {
-    background: var(--bleu-nuage);
-    border-radius: 10px;
-    padding: 15px;
-    width: 180px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    color: var(--bleu-ardoise);
-}
-
-/* Conteneur des jours */
-.container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.day {
-    background: var(--bleu-ciel);
-    border-radius: 10px;
-    padding: 15px;
-    width: 230px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    color: var(--bleu-ardoise);
-}
-
-.day img {
-    width: 60px;
-    height: 60px;
-}
-
-.day h3 {
-    margin: 10px 0;
+.main-part section h3 {
+    margin-bottom: 1rem;
+    color: #333;
     font-size: 1.2rem;
+    text-align: center;
 }
 
-.day p {
-    margin: 5px 0;
-    font-size: 0.9rem;
+.main-part section img,
+.main-part section iframe {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 1rem;
+    border-radius: 5px;
+}
+
+.main-part section p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-align: justify;
+}
+
+.main-part section ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.main-part section ul li {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    border-bottom: 1px solid #e6f0fa;
+}
+
+.main-part section ul li:last-child {
+    border-bottom: none;
+}
+
+.main-part #browser-info {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsivité pour la page NASA et géolocalisation */
+@media (max-width: 768px) {
+    .main-part section {
+        margin: 1rem;
+        padding: 0.5rem;
+    }
+
+    .main-part section h2 {
+        font-size: 1.2rem;
+    }
+
+    .main-part section h3 {
+        font-size: 1rem;
+    }
+
+    .main-part section p {
+        font-size: 0.9rem;
+    }
+
+    .main-part section ul li {
+        font-size: 0.9rem;
+    }
+
+    .main-part #browser-info {
+        font-size: 0.9rem;
+    }
+
+    .main-part section iframe {
+        width: 100%;
+        height: 200px;
+    }
 }

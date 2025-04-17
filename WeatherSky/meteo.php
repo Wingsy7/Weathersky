@@ -1,77 +1,176 @@
-<?php 
-require "./include/header.inc.php";
-require "./include/functions.inc.php";
-require_once("./include/meteo.php");
+<?php
+/**Projet
+*Point D'avancement 1
+*/
+function getTodayDate() {
+  $formatted_date = date("Y-m-d");
+  return $formatted_date;
+}
 
-$villes = lireCSV("villes.csv");
-$departements = lireCSV("departement.csv");
-$regions = lireCSV("regions.csv");
-$villes = relierCSV($villes, $departements, $regions);
+function getAPODImage(): string {
+  $api_key = "DEMO_KEY"; // Remplace par ta propre clé API
+  $date = getTodayDate();
 
-$ville = $_GET['ville'] ?? ($_COOKIE['derniere_ville'] ?? null);
-$lat = $_GET['lat'] ?? ($_COOKIE['derniere_lat'] ?? null);
-$lon = $_GET['lon'] ?? ($_COOKIE['derniere_lon'] ?? null);
+  $url = "https://api.nasa.gov/planetary/apod?api_key=$api_key&date=$date";
+  $response = @file_get_contents($url);
+  if ($response === false) {
+      return '<p>Impossible de récupérer l’image du jour. Veuillez réessayer plus tard.</p>';
+  }
 
-$region = ($ville) ? getRegionFromVille($ville, $villes, $departements, $regions) : "Région inconnue";
+  $data = json_decode($response, true);
+  if (!$data || !isset($data['media_type']) || !isset($data['url'])) {
+      return '<p>Données invalides reçues depuis l’API NASA.</p>';
+  }
 
-$style_css = getStyle(); 
-echo en_tete("Prévisions complètes - Météo", false);
-echo TD_actuel_selectionné(1);
-?>
+  if ($data['media_type'] === 'video') {
+      $apod = '<div class="apod-video">';
+      $apod .= '<iframe width="560" height="315" src="' . $data['url'] . '" frameborder="0" allowfullscreen></iframe>';
+      $apod .= '<p>' . htmlspecialchars($data['title'] ?? '') . '</p>';
+      $apod .= '<p>' . htmlspecialchars($data['explanation'] ?? '') . '</p>';
+      $apod .= '</div>';
+  } else {
+      $apod = '<figure>';
+      $apod .= '<img src="' . htmlspecialchars($data['url']) . '" alt="APOD Image" class="apodNasa">';
+      $apod .= '<figcaption>' . htmlspecialchars($data['explanation']) . '</figcaption>';
+      $apod .= '</figure>';
+  }
 
-<title>Prévisions - Météo</title>
-<link rel="stylesheet" href="style.css">
+  return $apod;
+}
 
-<main>
-    <div class="main-part">
-        <h1>📅 Prévisions complètes pour <?= htmlspecialchars($ville) ?> (<?= $region ?>)</h1>
+function getVisitorLocationXML() {
+  $api_url = 'http://www.geoplugin.net/xml.gp?ip=' . $_SERVER['REMOTE_ADDR'];
+  $response = file_get_contents($api_url);
+  $data = simplexml_load_string($response);
 
-        <?php if ($lat && $lon): ?>
-            <?php
-            $data = getMeteoData((float)$lat, (float)$lon);
-            $jours = $data['daily']['time'];
-            $tmin = $data['daily']['temperature_2m_min'];
-            $tmax = $data['daily']['temperature_2m_max'];
-            $ressMin = $data['daily']['apparent_temperature_min'];
-            $ressMax = $data['daily']['apparent_temperature_max'];
-            $pluie = $data['daily']['precipitation_sum'];
-            $neige = $data['daily']['snowfall_sum'];
-            $pluieH = $data['daily']['precipitation_hours'];
-            $vent = $data['daily']['windspeed_10m_max'];
-            $dirVent = $data['daily']['winddirection_10m_dominant'];
-            $sunrise = $data['daily']['sunrise'];
-            $sunset = $data['daily']['sunset'];
-            $uv = $data['daily']['uv_index_max'];
-            $codes = $data['daily']['weathercode'];
+  $location = [
+      'city' => (string)$data->geoplugin_city,
+      'region' => (string)$data->geoplugin_region,
+      'country' => (string)$data->geoplugin_countryName,
+      'latitude' => (float)$data->geoplugin_latitude,
+      'longitude' => (float)$data->geoplugin_longitude
+  ];
 
-            $icons = [
-                0 => "☀️", 1 => "🌤️", 2 => "⛅", 3 => "☁️", 45 => "🌫️",
-                51 => "🌦️", 61 => "🌧️", 71 => "❄️", 95 => "⛈️"
-            ];
-            ?>
+  return $location;
+}
 
-            <div class="container">
-                <?php for ($i = 0; $i < 5; $i++): ?>
-                    <div class="day">
-                        <h3><?= date("D d M", strtotime($jours[$i])) ?></h3>
-                        <p><?= $icons[$codes[$i]] ?? "❓" ?></p>
-                        <p>🌡️ <?= $tmin[$i] ?>° / <?= $tmax[$i] ?>°</p>
-                        <p>🤒 Ressenti : <?= $ressMin[$i] ?>° / <?= $ressMax[$i] ?>°</p>
-                        <p>🌧️ Pluie : <?= $pluie[$i] ?> mm (<?= $pluieH[$i] ?>h)</p>
-                        <p>❄️ Neige : <?= $neige[$i] ?> mm</p>
-                        <p>💨 Vent : <?= $vent[$i] ?> km/h</p>
-                        <p>🧭 Direction : <?= $dirVent[$i] ?>°</p>
-                        <p>☀️ <?= date("H:i", strtotime($sunrise[$i])) ?> - <?= date("H:i", strtotime($sunset[$i])) ?></p>
-                        <p>🔆 UV : <?= $uv[$i] ?></p>
-                    </div>
-                <?php endfor; ?>
-            </div>
-        <?php else: ?>
-            <p>Ville inconnue. Merci de revenir à l'accueil pour sélectionner une ville.</p>
-        <?php endif; ?>
+function getUserIP() {
+  if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+  } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  } else {
+      $ip = $_SERVER['REMOTE_ADDR'];
+  }
+  return $ip;
+}
 
-        <a href="index.php" class="btn">⬅ Retour à l'accueil</a>
-    </div>
-</main>
+function getVisitorLocationJSON() {
+  $user_ip = getUserIP();
+  $api_url = "https://ipinfo.io/$user_ip/json";
 
-<?php require "./include/footer.inc.php"; ?>
+  $response = file_get_contents($api_url);
+  $data = json_decode($response, true);
+
+  $location = [
+      'city' => $data['city'],
+      'region' => $data['region'],
+      'country' => $data['country'],
+      'latitude' => (float)$data['loc'] ? explode(',', $data['loc'])[0] : null,
+      'longitude' => (float)$data['loc'] ? explode(',', $data['loc'])[1] : null
+  ];
+
+  return $location;
+}
+
+function getVisitorLocationWIP() {
+  $user_ip = getUserIP();
+  $api_key = "e964f74aadfe25702230dfcbac03a675";
+  $api_url = "https://api.whatismyip.com/ip-address-lookup.php?key=$api_key&input=$user_ip&output=xml";
+
+  $response = file_get_contents($api_url);
+  $data = simplexml_load_string($response);
+
+  if (isset($data->query_status) && $data->query_status->query_status_code == "OK") {
+      $location = [
+          'city' => (string)$data->server_data->city,
+          'region' => (string)$data->server_data->region,
+          'country' => (string)$data->server_data->country
+      ];
+      return $location;
+  }
+}
+
+function getBestVisitorLocation() {
+  $location = getVisitorLocationXML();
+
+  if (empty($location['city']) || empty($location['latitude'])) {
+      $location = getVisitorLocationJSON();
+  }
+
+  if (empty($location['city'])) {
+      $location = getVisitorLocationWIP();
+  }
+
+  return $location;
+}
+
+function getVisitorLocationFromWhatIsMyIP() {
+  $user_ip = getUserIP();
+  $api_key = "e964f74aadfe25702230dfcbac03a675";
+  $api_url = "https://api.whatismyip.com/ip-address-lookup.php?key=$api_key&input=$user_ip&output=xml";
+
+  $response = file_get_contents($api_url);
+  $data = simplexml_load_string($response);
+
+  $location = [
+      'city' => (string)$data->city,
+      'region' => (string)$data->region,
+      'country' => (string)$data->country
+  ];
+
+  return $location;
+}
+
+function lireCSV($fichier, $separateur = ",") {
+  $resultat = [];
+
+  if (!file_exists($fichier)) {
+      return [];
+  }
+
+  if (($handle = fopen($fichier, "r")) !== false) {
+      $entetes = fgetcsv($handle, 1000, $separateur);
+      if (!$entetes) {
+          return [];
+      }
+
+      while (($ligne = fgetcsv($handle, 1000, $separateur)) !== false) {
+          if (count($ligne) === count($entetes)) {
+              $resultat[] = array_combine($entetes, $ligne);
+          }
+      }
+      fclose($handle);
+  }
+
+  return $resultat;
+}
+
+function getRegionFromVille($codeINSEE, $villes, $departements, $regions) {
+  foreach ($villes as $ville) {
+      if ($ville[0] == $codeINSEE) {
+          $depCode = $ville[3];
+          foreach ($departements as $dep) {
+              if ($dep['DEP'] == $depCode) {
+                  $regCode = $dep['REG'];
+                  foreach ($regions as $region) {
+                      if ($region['REG'] == $regCode) {
+                          return $region['LIBELLE'];
+                      }
+                  }
+              }
+          }
+      }
+  }
+  return "Région inconnue";
+}

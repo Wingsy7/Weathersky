@@ -1,92 +1,47 @@
-<?php 
-require "./include/header.inc.php";
-require "./include/functions.inc.php";
+<?php
+// Lire le fichier CSV et compter les villes
+$fichier = 'villes_consultées.csv';
+$villes = [];
 
-$villesStats = file_exists("stats_villes.json") ? json_decode(file_get_contents("stats_villes.json"), true) : [];
-$departementsStats = file_exists("stats_departements.json") ? json_decode(file_get_contents("stats_departements.json"), true) : [];
-$mapStats = file_exists("stats_map.json") ? json_decode(file_get_contents("stats_map.json"), true) : [];
+if (($handle = fopen($fichier, 'r')) !== false) {
+    // Ignorer l'en-tête
+    fgetcsv($handle);
+    while (($data = fgetcsv($handle)) !== false) {
+        $ville = $data[0];
+        $villes[$ville] = ($villes[$ville] ?? 0) + 1;
+    }
+    fclose($handle);
+}
 
-$totalVilles = array_sum($villesStats);
-$totalDeps = array_sum($departementsStats);
-$totalMapClicks = array_sum($mapStats);
-
-$style_css = getStyle();
-echo en_tete("Statistiques Météo", false);
-echo TD_actuel_selectionné(2);
+// Préparer les données pour l'histogramme
+$labels = array_keys($villes);
+$valeurs = array_values($villes);
 ?>
 
-<title>Statistiques</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<main>
-    <div class="main-part">
-        <h1>📊 Statistiques du site météo</h1>
-
-        <section>
-            <h2>🔎 Recherches par villes</h2>
-            <canvas id="chartVilles" width="600" height="300"></canvas>
-        </section>
-
-        <section>
-            <h2>🏛️ Recherches par départements</h2>
-            <canvas id="chartDeps" width="600" height="300"></canvas>
-        </section>
-
-        <section>
-            <h2>🗺️ Interactions via la carte interactive</h2>
-            <canvas id="chartMap" width="600" height="300"></canvas>
-        </section>
-
-        <p><strong>Total recherches villes :</strong> <?= $totalVilles ?> | <strong>Total départements :</strong> <?= $totalDeps ?> | <strong>Clicks sur carte :</strong> <?= $totalMapClicks ?></p>
-
-        <a href="index.php" class="btn">⬅ Retour à l'accueil</a>
-    </div>
-</main>
-
-<script>
-const villes = <?= json_encode($villesStats) ?>;
-const deps = <?= json_encode($departementsStats) ?>;
-const maps = <?= json_encode($mapStats) ?>;
-
-new Chart(document.getElementById('chartVilles'), {
-    type: 'bar',
-    data: {
-        labels: Object.keys(villes),
-        datasets: [{
-            label: 'Recherches par ville',
-            data: Object.values(villes),
-            backgroundColor: 'rgba(75, 192, 192, 0.6)'
-        }]
-    },
-    options: {indexAxis: 'y'}
-});
-
-new Chart(document.getElementById('chartDeps'), {
-    type: 'bar',
-    data: {
-        labels: Object.keys(deps),
-        datasets: [{
-            label: 'Recherches par département',
-            data: Object.values(deps),
-            backgroundColor: 'rgba(255, 159, 64, 0.6)'
-        }]
-    },
-    options: {indexAxis: 'y'}
-});
-
-new Chart(document.getElementById('chartMap'), {
-    type: 'bar',
-    data: {
-        labels: Object.keys(maps),
-        datasets: [{
-            label: 'Clicks sur la carte',
-            data: Object.values(maps),
-            backgroundColor: 'rgba(153, 102, 255, 0.6)'
-        }]
-    },
-    options: {indexAxis: 'y'}
-});
-</script>
-
-<?php require "./include/footer.inc.php"; ?>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques des villes</title>
+    <style>
+        .bar {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+    <h1>Statistiques des villes consultées</h1>
+    <?php
+    if (!empty($villes)) {
+        $max = max($valeurs); // Pour normaliser la largeur des barres
+        foreach ($villes as $ville => $count) {
+            $width = ($count / $max) * 300; // Largeur max de 300px
+            echo "<div class='bar' style='width: {$width}px;'>{$ville} ({$count})</div>";
+        }
+    } else {
+        echo "<p>Aucune donnée disponible.</p>";
+    }
+    ?>
+    <p><a href="index.php">Retour</a></p>
+</html>
