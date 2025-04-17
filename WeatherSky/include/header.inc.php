@@ -28,7 +28,12 @@ function en_tete(string $title = "TD - PHP", bool $close_head = true): string {
 <body>
     <header>
         " . TD_actuel_selectionné(DEFAULT_TD_SELECTED) . "
+        " . afficherMenu(getNomPageActive()) . "
     </header>";
+}
+
+function getNomPageActive(): string {
+    return basename($_SERVER["PHP_SELF"], ".php");
 }
 
 /**
@@ -43,12 +48,7 @@ function TD_actuel_selectionné(int $tab_number_selected = DEFAULT_TD_SELECTED):
 <nav id=\"header-nav\">
     <ul class=\"header-ul\">";
     
-    // Liens des TDs
-    for ($i = 5; $i <= MAX_TD_NUMBER; $i++) {
-        $s .= "\n<li class=\"header-li" . (($i == $tab_number_selected) ? " current-page" : "") . "\">
-            <a href=\"./td$i.php\">TD $i</a>
-        </li>";
-    }
+ 
     
     // Bouton de bascule de thème
     $s .= "\n<li class=\"header-li\">
@@ -59,6 +59,7 @@ function TD_actuel_selectionné(int $tab_number_selected = DEFAULT_TD_SELECTED):
 
     return $s;
 }
+
 
 /**
  * Retourne le thème actuel (cookie ou GET) ou le défaut.

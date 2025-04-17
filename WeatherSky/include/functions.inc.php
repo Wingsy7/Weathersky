@@ -658,6 +658,77 @@ function getVisitorLocationFromWhatIsMyIP() {
 
   return $location;
 }
+function relierCSV($villes, $departements, $regions) {
+  $departements_par_code = [];
+  foreach ($departements as $dep) {
+      if (isset($dep["code_departement"])) {
+          $departements_par_code[$dep["code_departement"]] = $dep;
+      }
+  }
+
+  $regions_par_code = [];
+  foreach ($regions as $region) {
+      if (isset($region["code_region"])) {
+          $regions_par_code[$region["code_region"]] = $region;
+      }
+  }
+
+  foreach ($villes as &$ville) {
+      if (!isset($ville["code_departement"])) {
+          $ville["departement"] = [];
+          $ville["region"] = [];
+          continue;
+      }
+
+      $codeDep = $ville["code_departement"];
+      $ville["departement"] = $departements_par_code[$codeDep] ?? [];
+
+      if (!empty($ville["departement"]) && isset($ville["departement"]["code_region"])) {
+          $codeRegion = $ville["departement"]["code_region"];
+          $ville["region"] = $regions_par_code[$codeRegion] ?? [];
+      } else {
+          $ville["region"] = [];
+      }
+  }
+
+  return $villes;
+}
+
+
+function getRegionFromVille($nomVille, $villes, $departements, $regions) {
+  $nomVille = strtolower($nomVille);
+  $villeTrouvee = null;
+
+  foreach ($villes as $ville) {
+      // Vérifie que la clé 'nom_ville' existe
+      if (!isset($ville["nom_ville"])) {
+          continue;
+      }
+
+      if (strtolower($ville["nom_ville"]) === $nomVille) {
+          $villeTrouvee = $ville;
+          break;
+      }
+  }
+
+  if ($villeTrouvee && isset($villeTrouvee["region"]["nom_region"])) {
+      return $villeTrouvee["region"]["nom_region"];
+  }
+
+  return "Région inconnue";
+}
+
+
+
+function getPrefectureParDepartement($codeDept, $villes) {
+    foreach ($villes as $ville) {
+        if ($ville['code_departement'] === $codeDept && $ville['est_prefecture'] === "TRUE") {
+            return $ville;
+        }
+    }
+    return null;
+}
+
 function lireCSV($fichier, $separateur = ",") {
   $resultat = [];
 
@@ -681,25 +752,18 @@ function lireCSV($fichier, $separateur = ",") {
   }
 
   return $resultat;
-}
-function getRegionFromVille($codeINSEE, $villes, $departements, $regions) {
-  foreach ($villes as $ville) {
-      if ($ville[0] == $codeINSEE) {
-          $depCode = $ville[3];
-          foreach ($departements as $dep) {
-              if ($dep['DEP'] == $depCode) {
-                  $regCode = $dep['REG'];
-                  foreach ($regions as $region) {
-                      if ($region['REG'] == $regCode) {
-                          return $region['LIBELLE'];
-                      }
-                  }
-              }
-          }
-      }
+} function afficherMenu($pageActive) {
+  $pages = [
+      "index" => ["Accueil", "🏠", "index.php"],
+      "meteo" => ["Météo", "🌤️", "meteo.php"],
+      "stats" => ["Statistiques", "📊", "stats.php"]
+  ];
+
+  echo '<nav><ul>';
+  foreach ($pages as $cle => [$nom, $icone, $lien]) {
+      $classe = ($cle === $pageActive) ? 'active' : '';
+      echo "<li><a class='$classe' href='$lien'>$icone $nom</a></li>";
   }
-  return "Région inconnue";
+  echo '</ul></nav>';
 }
-
-
 ?>
