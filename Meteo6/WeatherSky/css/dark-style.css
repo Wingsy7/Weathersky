@@ -1,0 +1,304 @@
+/* Réinitialisation et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #1a2634;
+    color: #e6f0fa;
+    padding-top: 80px; /* Ajouté pour l'espace de la navigation fixe, comme dans style.css */
+}
+
+/* En-tête */
+header {
+    background: linear-gradient(135deg, #0d47a1, #1565c0);
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Navigation */
+#header-nav {
+    background: #263238;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 auto;
+    max-width: 1200px;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between; /* Alignement à gauche pour le logo, à droite pour le formulaire */
+    align-items: center; /* Centre verticalement les éléments */
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding-left: 15px; /* Espacement à gauche */
+}
+
+.site-logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px; /* Espacement entre le logo et le texte, si texte ajouté */
+}
+
+.header-ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.header-li a {
+    text-decoration: none;
+    color: #4fc3f7;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    transition: color 0.3s, background 0.3s;
+    border-radius: 5px;
+}
+
+.header-li a:hover {
+    color: #fff;
+    background: #b3e5fc;
+}
+
+.header-li.current-page a {
+    color: #fff;
+    background: #b3e5fc;
+}
+
+/* Titre principal */
+.site-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    font-size: 2.5rem;
+    color: #b3e5fc; /* Couleur plus claire pour meilleur contraste */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Ajouté pour améliorer la lisibilité */
+}
+
+/* Formulaire de mode sombre */
+.display-mode-form {
+    position: relative; /* Changé de absolute à relative pour s'intégrer au flex */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #4fc3f7;
+    padding-right: 15px; /* Espacement à droite */
+}
+
+.display-mode-form label {
+    cursor: pointer;
+}
+
+.display-mode-form input[type="checkbox"] {
+    appearance: none;
+    width: 2rem;
+    height: 1rem;
+    background: #78909c;
+    border-radius: 1rem;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.display-mode-form input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 0.8rem;
+    height: 0.8rem;
+    background: #e6f0fa;
+    border-radius: 50%;
+    top: 0.1rem;
+    left: 0.1rem;
+    transition: transform 0.3s;
+}
+
+.display-mode-form input[type="checkbox"]:checked {
+    background: #b3e5fc;
+}
+
+.display-mode-form input[type="checkbox"]:checked::before {
+    transform: translateX(1rem);
+}
+
+/* Carrousel */
+.carousel {
+    max-width: 1200px; /* Augmenté pour un carrousel plus large */
+    margin: 2rem auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.carousel-inner {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center; /* Centre les images */
+}
+
+.carousel-item img {
+    width: 100%;
+    max-width: 1100px; /* Augmenté pour des images plus grandes */
+    height: 600px; /* Augmenté pour des images plus hautes */
+    object-fit: cover;
+    display: block;
+    border-radius: 5px;
+}
+
+/* Statistiques */
+.main-part h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #b3e5fc; /* Couleur claire pour visibilité */
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Ajouté pour lisibilité */
+}
+
+.main-part h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #b3e5fc; /* Couleur claire pour visibilité */
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Ajouté pour lisibilité */
+}
+
+.main-part p {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #e6f0fa; /* Assure que le texte est visible */
+}
+
+.chart-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.chart-container img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+.main-part a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #4fc3f7;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 1rem auto;
+    background: #263238;
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.main-part a:hover {
+    background: #b3e5fc;
+    color: #1a2634;
+}
+
+/* Pied de page */
+footer {
+    background: #0d47a1;
+    color: #e6f0fa;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    body {
+        padding-top: 120px; /* Plus d’espace sur mobile */
+    }
+
+    .site-title {
+        font-size: 1.8rem;
+    }
+
+    .carousel {
+        max-width: 90%; /* Ajusté pour mobile */
+    }
+
+    .carousel-item img {
+        max-width: 100%;
+        height: 350px; /* Ajusté pour mobile */
+    }
+
+    #header-nav {
+        padding: 10px;
+        flex-direction: column; /* Empile les éléments sur mobile */
+        align-items: flex-start; /* Aligne à gauche */
+    }
+
+    .logo-link {
+        padding-left: 10px; /* Ajustement pour mobile */
+    }
+
+    .header-ul {
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 10px; /* Espacement après le logo */
+    }
+
+    .header-li a {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+
+    .display-mode-form {
+        padding-right: 10px; /* Ajustement pour mobile */
+        padding-top: 10px; /* Espacement après la navigation */
+    }
+
+    .main-part h1 {
+        font-size: 1.3rem;
+    }
+
+    .main-part h2 {
+        font-size: 1rem;
+    }
+
+    .main-part p {
+        font-size: 0.9rem;
+    }
+
+    .chart-container img {
+        max-width: 90%;
+    }
+
+    .main-part a {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}

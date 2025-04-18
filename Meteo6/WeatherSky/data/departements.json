@@ -1,0 +1,911 @@
+[
+  {
+    "DEP": "01",
+    "REG": 84,
+    "CHEFLIEU": "01053",
+    "TNCC": 5,
+    "NCC": "AIN",
+    "NCCENR": "Ain",
+    "LIBELLE": "Ain"
+  },
+  {
+    "DEP": "02",
+    "REG": 32,
+    "CHEFLIEU": "02408",
+    "TNCC": 5,
+    "NCC": "AISNE",
+    "NCCENR": "Aisne",
+    "LIBELLE": "Aisne"
+  },
+  {
+    "DEP": "03",
+    "REG": 84,
+    "CHEFLIEU": "03190",
+    "TNCC": 5,
+    "NCC": "ALLIER",
+    "NCCENR": "Allier",
+    "LIBELLE": "Allier"
+  },
+  {
+    "DEP": "04",
+    "REG": 93,
+    "CHEFLIEU": "04070",
+    "TNCC": 4,
+    "NCC": "ALPES DE HAUTE PROVENCE",
+    "NCCENR": "Alpes-de-Haute-Provence",
+    "LIBELLE": "Alpes-de-Haute-Provence"
+  },
+  {
+    "DEP": "05",
+    "REG": 93,
+    "CHEFLIEU": "05061",
+    "TNCC": 4,
+    "NCC": "HAUTES ALPES",
+    "NCCENR": "Hautes-Alpes",
+    "LIBELLE": "Hautes-Alpes"
+  },
+  {
+    "DEP": "06",
+    "REG": 93,
+    "CHEFLIEU": "06088",
+    "TNCC": 4,
+    "NCC": "ALPES MARITIMES",
+    "NCCENR": "Alpes-Maritimes",
+    "LIBELLE": "Alpes-Maritimes"
+  },
+  {
+    "DEP": "07",
+    "REG": 84,
+    "CHEFLIEU": "07186",
+    "TNCC": 5,
+    "NCC": "ARDECHE",
+    "NCCENR": "Ardèche",
+    "LIBELLE": "Ardèche"
+  },
+  {
+    "DEP": "08",
+    "REG": 44,
+    "CHEFLIEU": "08105",
+    "TNCC": 4,
+    "NCC": "ARDENNES",
+    "NCCENR": "Ardennes",
+    "LIBELLE": "Ardennes"
+  },
+  {
+    "DEP": "09",
+    "REG": 76,
+    "CHEFLIEU": "09122",
+    "TNCC": 5,
+    "NCC": "ARIEGE",
+    "NCCENR": "Ariège",
+    "LIBELLE": "Ariège"
+  },
+  {
+    "DEP": "10",
+    "REG": 44,
+    "CHEFLIEU": "10387",
+    "TNCC": 5,
+    "NCC": "AUBE",
+    "NCCENR": "Aube",
+    "LIBELLE": "Aube"
+  },
+  {
+    "DEP": "11",
+    "REG": 76,
+    "CHEFLIEU": "11069",
+    "TNCC": 5,
+    "NCC": "AUDE",
+    "NCCENR": "Aude",
+    "LIBELLE": "Aude"
+  },
+  {
+    "DEP": "12",
+    "REG": 76,
+    "CHEFLIEU": "12202",
+    "TNCC": 5,
+    "NCC": "AVEYRON",
+    "NCCENR": "Aveyron",
+    "LIBELLE": "Aveyron"
+  },
+  {
+    "DEP": "13",
+    "REG": 93,
+    "CHEFLIEU": "13055",
+    "TNCC": 4,
+    "NCC": "BOUCHES DU RHONE",
+    "NCCENR": "Bouches-du-Rhône",
+    "LIBELLE": "Bouches-du-Rhône"
+  },
+  {
+    "DEP": "14",
+    "REG": 28,
+    "CHEFLIEU": "14118",
+    "TNCC": 2,
+    "NCC": "CALVADOS",
+    "NCCENR": "Calvados",
+    "LIBELLE": "Calvados"
+  },
+  {
+    "DEP": "15",
+    "REG": 84,
+    "CHEFLIEU": "15014",
+    "TNCC": 2,
+    "NCC": "CANTAL",
+    "NCCENR": "Cantal",
+    "LIBELLE": "Cantal"
+  },
+  {
+    "DEP": "16",
+    "REG": 75,
+    "CHEFLIEU": "16015",
+    "TNCC": 3,
+    "NCC": "CHARENTE",
+    "NCCENR": "Charente",
+    "LIBELLE": "Charente"
+  },
+  {
+    "DEP": "17",
+    "REG": 75,
+    "CHEFLIEU": "17300",
+    "TNCC": 3,
+    "NCC": "CHARENTE MARITIME",
+    "NCCENR": "Charente-Maritime",
+    "LIBELLE": "Charente-Maritime"
+  },
+  {
+    "DEP": "18",
+    "REG": 24,
+    "CHEFLIEU": "18033",
+    "TNCC": 2,
+    "NCC": "CHER",
+    "NCCENR": "Cher",
+    "LIBELLE": "Cher"
+  },
+  {
+    "DEP": "19",
+    "REG": 75,
+    "CHEFLIEU": "19272",
+    "TNCC": 3,
+    "NCC": "CORREZE",
+    "NCCENR": "Corrèze",
+    "LIBELLE": "Corrèze"
+  },
+  {
+    "DEP": "21",
+    "REG": 27,
+    "CHEFLIEU": "21231",
+    "TNCC": 3,
+    "NCC": "COTE D OR",
+    "NCCENR": "Côte-d'Or",
+    "LIBELLE": "Côte-d'Or"
+  },
+  {
+    "DEP": "22",
+    "REG": 53,
+    "CHEFLIEU": "22278",
+    "TNCC": 4,
+    "NCC": "COTES D ARMOR",
+    "NCCENR": "Côtes-d'Armor",
+    "LIBELLE": "Côtes-d'Armor"
+  },
+  {
+    "DEP": "23",
+    "REG": 75,
+    "CHEFLIEU": "23096",
+    "TNCC": 3,
+    "NCC": "CREUSE",
+    "NCCENR": "Creuse",
+    "LIBELLE": "Creuse"
+  },
+  {
+    "DEP": "24",
+    "REG": 75,
+    "CHEFLIEU": "24322",
+    "TNCC": 3,
+    "NCC": "DORDOGNE",
+    "NCCENR": "Dordogne",
+    "LIBELLE": "Dordogne"
+  },
+  {
+    "DEP": "25",
+    "REG": 27,
+    "CHEFLIEU": "25056",
+    "TNCC": 2,
+    "NCC": "DOUBS",
+    "NCCENR": "Doubs",
+    "LIBELLE": "Doubs"
+  },
+  {
+    "DEP": "26",
+    "REG": 84,
+    "CHEFLIEU": "26362",
+    "TNCC": 3,
+    "NCC": "DROME",
+    "NCCENR": "Drôme",
+    "LIBELLE": "Drôme"
+  },
+  {
+    "DEP": "27",
+    "REG": 28,
+    "CHEFLIEU": "27229",
+    "TNCC": 5,
+    "NCC": "EURE",
+    "NCCENR": "Eure",
+    "LIBELLE": "Eure"
+  },
+  {
+    "DEP": "28",
+    "REG": 24,
+    "CHEFLIEU": "28085",
+    "TNCC": 1,
+    "NCC": "EURE ET LOIR",
+    "NCCENR": "Eure-et-Loir",
+    "LIBELLE": "Eure-et-Loir"
+  },
+  {
+    "DEP": "29",
+    "REG": 53,
+    "CHEFLIEU": "29232",
+    "TNCC": 2,
+    "NCC": "FINISTERE",
+    "NCCENR": "Finistère",
+    "LIBELLE": "Finistère"
+  },
+  {
+    "DEP": "2A",
+    "REG": 94,
+    "CHEFLIEU": "2A004",
+    "TNCC": 3,
+    "NCC": "CORSE DU SUD",
+    "NCCENR": "Corse-du-Sud",
+    "LIBELLE": "Corse-du-Sud"
+  },
+  {
+    "DEP": "2B",
+    "REG": 94,
+    "CHEFLIEU": "2B033",
+    "TNCC": 3,
+    "NCC": "HAUTE CORSE",
+    "NCCENR": "Haute-Corse",
+    "LIBELLE": "Haute-Corse"
+  },
+  {
+    "DEP": "30",
+    "REG": 76,
+    "CHEFLIEU": "30189",
+    "TNCC": 2,
+    "NCC": "GARD",
+    "NCCENR": "Gard",
+    "LIBELLE": "Gard"
+  },
+  {
+    "DEP": "31",
+    "REG": 76,
+    "CHEFLIEU": "31555",
+    "TNCC": 3,
+    "NCC": "HAUTE GARONNE",
+    "NCCENR": "Haute-Garonne",
+    "LIBELLE": "Haute-Garonne"
+  },
+  {
+    "DEP": "32",
+    "REG": 76,
+    "CHEFLIEU": "32013",
+    "TNCC": 2,
+    "NCC": "GERS",
+    "NCCENR": "Gers",
+    "LIBELLE": "Gers"
+  },
+  {
+    "DEP": "33",
+    "REG": 75,
+    "CHEFLIEU": "33063",
+    "TNCC": 3,
+    "NCC": "GIRONDE",
+    "NCCENR": "Gironde",
+    "LIBELLE": "Gironde"
+  },
+  {
+    "DEP": "34",
+    "REG": 76,
+    "CHEFLIEU": "34172",
+    "TNCC": 5,
+    "NCC": "HERAULT",
+    "NCCENR": "Hérault",
+    "LIBELLE": "Hérault"
+  },
+  {
+    "DEP": "35",
+    "REG": 53,
+    "CHEFLIEU": "35238",
+    "TNCC": 1,
+    "NCC": "ILLE ET VILAINE",
+    "NCCENR": "Ille-et-Vilaine",
+    "LIBELLE": "Ille-et-Vilaine"
+  },
+  {
+    "DEP": "36",
+    "REG": 24,
+    "CHEFLIEU": "36044",
+    "TNCC": 5,
+    "NCC": "INDRE",
+    "NCCENR": "Indre",
+    "LIBELLE": "Indre"
+  },
+  {
+    "DEP": "37",
+    "REG": 24,
+    "CHEFLIEU": "37261",
+    "TNCC": 1,
+    "NCC": "INDRE ET LOIRE",
+    "NCCENR": "Indre-et-Loire",
+    "LIBELLE": "Indre-et-Loire"
+  },
+  {
+    "DEP": "38",
+    "REG": 84,
+    "CHEFLIEU": "38185",
+    "TNCC": 5,
+    "NCC": "ISERE",
+    "NCCENR": "Isère",
+    "LIBELLE": "Isère"
+  },
+  {
+    "DEP": "39",
+    "REG": 27,
+    "CHEFLIEU": "39300",
+    "TNCC": 2,
+    "NCC": "JURA",
+    "NCCENR": "Jura",
+    "LIBELLE": "Jura"
+  },
+  {
+    "DEP": "40",
+    "REG": 75,
+    "CHEFLIEU": "40192",
+    "TNCC": 4,
+    "NCC": "LANDES",
+    "NCCENR": "Landes",
+    "LIBELLE": "Landes"
+  },
+  {
+    "DEP": "41",
+    "REG": 24,
+    "CHEFLIEU": "41018",
+    "TNCC": 2,
+    "NCC": "LOIR ET CHER",
+    "NCCENR": "Loir-et-Cher",
+    "LIBELLE": "Loir-et-Cher"
+  },
+  {
+    "DEP": "42",
+    "REG": 84,
+    "CHEFLIEU": "42218",
+    "TNCC": 3,
+    "NCC": "LOIRE",
+    "NCCENR": "Loire",
+    "LIBELLE": "Loire"
+  },
+  {
+    "DEP": "43",
+    "REG": 84,
+    "CHEFLIEU": "43157",
+    "TNCC": 3,
+    "NCC": "HAUTE LOIRE",
+    "NCCENR": "Haute-Loire",
+    "LIBELLE": "Haute-Loire"
+  },
+  {
+    "DEP": "44",
+    "REG": 52,
+    "CHEFLIEU": "44109",
+    "TNCC": 3,
+    "NCC": "LOIRE ATLANTIQUE",
+    "NCCENR": "Loire-Atlantique",
+    "LIBELLE": "Loire-Atlantique"
+  },
+  {
+    "DEP": "45",
+    "REG": 24,
+    "CHEFLIEU": "45234",
+    "TNCC": 2,
+    "NCC": "LOIRET",
+    "NCCENR": "Loiret",
+    "LIBELLE": "Loiret"
+  },
+  {
+    "DEP": "46",
+    "REG": 76,
+    "CHEFLIEU": "46042",
+    "TNCC": 2,
+    "NCC": "LOT",
+    "NCCENR": "Lot",
+    "LIBELLE": "Lot"
+  },
+  {
+    "DEP": "47",
+    "REG": 75,
+    "CHEFLIEU": "47001",
+    "TNCC": 2,
+    "NCC": "LOT ET GARONNE",
+    "NCCENR": "Lot-et-Garonne",
+    "LIBELLE": "Lot-et-Garonne"
+  },
+  {
+    "DEP": "48",
+    "REG": 76,
+    "CHEFLIEU": "48095",
+    "TNCC": 3,
+    "NCC": "LOZERE",
+    "NCCENR": "Lozère",
+    "LIBELLE": "Lozère"
+  },
+  {
+    "DEP": "49",
+    "REG": 52,
+    "CHEFLIEU": "49007",
+    "TNCC": 0,
+    "NCC": "MAINE ET LOIRE",
+    "NCCENR": "Maine-et-Loire",
+    "LIBELLE": "Maine-et-Loire"
+  },
+  {
+    "DEP": "50",
+    "REG": 28,
+    "CHEFLIEU": "50502",
+    "TNCC": 3,
+    "NCC": "MANCHE",
+    "NCCENR": "Manche",
+    "LIBELLE": "Manche"
+  },
+  {
+    "DEP": "51",
+    "REG": 44,
+    "CHEFLIEU": "51108",
+    "TNCC": 3,
+    "NCC": "MARNE",
+    "NCCENR": "Marne",
+    "LIBELLE": "Marne"
+  },
+  {
+    "DEP": "52",
+    "REG": 44,
+    "CHEFLIEU": "52121",
+    "TNCC": 3,
+    "NCC": "HAUTE MARNE",
+    "NCCENR": "Haute-Marne",
+    "LIBELLE": "Haute-Marne"
+  },
+  {
+    "DEP": "53",
+    "REG": 52,
+    "CHEFLIEU": "53130",
+    "TNCC": 3,
+    "NCC": "MAYENNE",
+    "NCCENR": "Mayenne",
+    "LIBELLE": "Mayenne"
+  },
+  {
+    "DEP": "54",
+    "REG": 44,
+    "CHEFLIEU": "54395",
+    "TNCC": 0,
+    "NCC": "MEURTHE ET MOSELLE",
+    "NCCENR": "Meurthe-et-Moselle",
+    "LIBELLE": "Meurthe-et-Moselle"
+  },
+  {
+    "DEP": "55",
+    "REG": 44,
+    "CHEFLIEU": "55029",
+    "TNCC": 3,
+    "NCC": "MEUSE",
+    "NCCENR": "Meuse",
+    "LIBELLE": "Meuse"
+  },
+  {
+    "DEP": "56",
+    "REG": 53,
+    "CHEFLIEU": "56260",
+    "TNCC": 2,
+    "NCC": "MORBIHAN",
+    "NCCENR": "Morbihan",
+    "LIBELLE": "Morbihan"
+  },
+  {
+    "DEP": "57",
+    "REG": 44,
+    "CHEFLIEU": "57463",
+    "TNCC": 3,
+    "NCC": "MOSELLE",
+    "NCCENR": "Moselle",
+    "LIBELLE": "Moselle"
+  },
+  {
+    "DEP": "58",
+    "REG": 27,
+    "CHEFLIEU": "58194",
+    "TNCC": 3,
+    "NCC": "NIEVRE",
+    "NCCENR": "Nièvre",
+    "LIBELLE": "Nièvre"
+  },
+  {
+    "DEP": "59",
+    "REG": 32,
+    "CHEFLIEU": "59350",
+    "TNCC": 2,
+    "NCC": "NORD",
+    "NCCENR": "Nord",
+    "LIBELLE": "Nord"
+  },
+  {
+    "DEP": "60",
+    "REG": 32,
+    "CHEFLIEU": "60057",
+    "TNCC": 5,
+    "NCC": "OISE",
+    "NCCENR": "Oise",
+    "LIBELLE": "Oise"
+  },
+  {
+    "DEP": "61",
+    "REG": 28,
+    "CHEFLIEU": "61001",
+    "TNCC": 5,
+    "NCC": "ORNE",
+    "NCCENR": "Orne",
+    "LIBELLE": "Orne"
+  },
+  {
+    "DEP": "62",
+    "REG": 32,
+    "CHEFLIEU": "62041",
+    "TNCC": 2,
+    "NCC": "PAS DE CALAIS",
+    "NCCENR": "Pas-de-Calais",
+    "LIBELLE": "Pas-de-Calais"
+  },
+  {
+    "DEP": "63",
+    "REG": 84,
+    "CHEFLIEU": "63113",
+    "TNCC": 2,
+    "NCC": "PUY DE DOME",
+    "NCCENR": "Puy-de-Dôme",
+    "LIBELLE": "Puy-de-Dôme"
+  },
+  {
+    "DEP": "64",
+    "REG": 75,
+    "CHEFLIEU": "64445",
+    "TNCC": 4,
+    "NCC": "PYRENEES ATLANTIQUES",
+    "NCCENR": "Pyrénées-Atlantiques",
+    "LIBELLE": "Pyrénées-Atlantiques"
+  },
+  {
+    "DEP": "65",
+    "REG": 76,
+    "CHEFLIEU": "65440",
+    "TNCC": 4,
+    "NCC": "HAUTES PYRENEES",
+    "NCCENR": "Hautes-Pyrénées",
+    "LIBELLE": "Hautes-Pyrénées"
+  },
+  {
+    "DEP": "66",
+    "REG": 76,
+    "CHEFLIEU": "66136",
+    "TNCC": 4,
+    "NCC": "PYRENEES ORIENTALES",
+    "NCCENR": "Pyrénées-Orientales",
+    "LIBELLE": "Pyrénées-Orientales"
+  },
+  {
+    "DEP": "67",
+    "REG": 44,
+    "CHEFLIEU": "67482",
+    "TNCC": 2,
+    "NCC": "BAS RHIN",
+    "NCCENR": "Bas-Rhin",
+    "LIBELLE": "Bas-Rhin"
+  },
+  {
+    "DEP": "68",
+    "REG": 44,
+    "CHEFLIEU": "68066",
+    "TNCC": 2,
+    "NCC": "HAUT RHIN",
+    "NCCENR": "Haut-Rhin",
+    "LIBELLE": "Haut-Rhin"
+  },
+  {
+    "DEP": "69",
+    "REG": 84,
+    "CHEFLIEU": "69123",
+    "TNCC": 2,
+    "NCC": "RHONE",
+    "NCCENR": "Rhône",
+    "LIBELLE": "Rhône"
+  },
+  {
+    "DEP": "70",
+    "REG": 27,
+    "CHEFLIEU": "70550",
+    "TNCC": 3,
+    "NCC": "HAUTE SAONE",
+    "NCCENR": "Haute-Saône",
+    "LIBELLE": "Haute-Saône"
+  },
+  {
+    "DEP": "71",
+    "REG": 27,
+    "CHEFLIEU": "71270",
+    "TNCC": 0,
+    "NCC": "SAONE ET LOIRE",
+    "NCCENR": "Saône-et-Loire",
+    "LIBELLE": "Saône-et-Loire"
+  },
+  {
+    "DEP": "72",
+    "REG": 52,
+    "CHEFLIEU": "72181",
+    "TNCC": 3,
+    "NCC": "SARTHE",
+    "NCCENR": "Sarthe",
+    "LIBELLE": "Sarthe"
+  },
+  {
+    "DEP": "73",
+    "REG": 84,
+    "CHEFLIEU": "73065",
+    "TNCC": 3,
+    "NCC": "SAVOIE",
+    "NCCENR": "Savoie",
+    "LIBELLE": "Savoie"
+  },
+  {
+    "DEP": "74",
+    "REG": 84,
+    "CHEFLIEU": "74010",
+    "TNCC": 3,
+    "NCC": "HAUTE SAVOIE",
+    "NCCENR": "Haute-Savoie",
+    "LIBELLE": "Haute-Savoie"
+  },
+  {
+    "DEP": "75",
+    "REG": 11,
+    "CHEFLIEU": "75056",
+    "TNCC": 0,
+    "NCC": "PARIS",
+    "NCCENR": "Paris",
+    "LIBELLE": "Paris"
+  },
+  {
+    "DEP": "76",
+    "REG": 28,
+    "CHEFLIEU": "76540",
+    "TNCC": 3,
+    "NCC": "SEINE MARITIME",
+    "NCCENR": "Seine-Maritime",
+    "LIBELLE": "Seine-Maritime"
+  },
+  {
+    "DEP": "77",
+    "REG": 11,
+    "CHEFLIEU": "77288",
+    "TNCC": 0,
+    "NCC": "SEINE ET MARNE",
+    "NCCENR": "Seine-et-Marne",
+    "LIBELLE": "Seine-et-Marne"
+  },
+  {
+    "DEP": "78",
+    "REG": 11,
+    "CHEFLIEU": "78646",
+    "TNCC": 4,
+    "NCC": "YVELINES",
+    "NCCENR": "Yvelines",
+    "LIBELLE": "Yvelines"
+  },
+  {
+    "DEP": "79",
+    "REG": 75,
+    "CHEFLIEU": "79191",
+    "TNCC": 4,
+    "NCC": "DEUX SEVRES",
+    "NCCENR": "Deux-Sèvres",
+    "LIBELLE": "Deux-Sèvres"
+  },
+  {
+    "DEP": "80",
+    "REG": 32,
+    "CHEFLIEU": "80021",
+    "TNCC": 3,
+    "NCC": "SOMME",
+    "NCCENR": "Somme",
+    "LIBELLE": "Somme"
+  },
+  {
+    "DEP": "81",
+    "REG": 76,
+    "CHEFLIEU": "81004",
+    "TNCC": 2,
+    "NCC": "TARN",
+    "NCCENR": "Tarn",
+    "LIBELLE": "Tarn"
+  },
+  {
+    "DEP": "82",
+    "REG": 76,
+    "CHEFLIEU": "82121",
+    "TNCC": 2,
+    "NCC": "TARN ET GARONNE",
+    "NCCENR": "Tarn-et-Garonne",
+    "LIBELLE": "Tarn-et-Garonne"
+  },
+  {
+    "DEP": "83",
+    "REG": 93,
+    "CHEFLIEU": "83137",
+    "TNCC": 2,
+    "NCC": "VAR",
+    "NCCENR": "Var",
+    "LIBELLE": "Var"
+  },
+  {
+    "DEP": "84",
+    "REG": 93,
+    "CHEFLIEU": "84007",
+    "TNCC": 2,
+    "NCC": "VAUCLUSE",
+    "NCCENR": "Vaucluse",
+    "LIBELLE": "Vaucluse"
+  },
+  {
+    "DEP": "85",
+    "REG": 52,
+    "CHEFLIEU": "85191",
+    "TNCC": 3,
+    "NCC": "VENDEE",
+    "NCCENR": "Vendée",
+    "LIBELLE": "Vendée"
+  },
+  {
+    "DEP": "86",
+    "REG": 75,
+    "CHEFLIEU": "86194",
+    "TNCC": 3,
+    "NCC": "VIENNE",
+    "NCCENR": "Vienne",
+    "LIBELLE": "Vienne"
+  },
+  {
+    "DEP": "87",
+    "REG": 75,
+    "CHEFLIEU": "87085",
+    "TNCC": 3,
+    "NCC": "HAUTE VIENNE",
+    "NCCENR": "Haute-Vienne",
+    "LIBELLE": "Haute-Vienne"
+  },
+  {
+    "DEP": "88",
+    "REG": 44,
+    "CHEFLIEU": "88160",
+    "TNCC": 4,
+    "NCC": "VOSGES",
+    "NCCENR": "Vosges",
+    "LIBELLE": "Vosges"
+  },
+  {
+    "DEP": "89",
+    "REG": 27,
+    "CHEFLIEU": "89024",
+    "TNCC": 5,
+    "NCC": "YONNE",
+    "NCCENR": "Yonne",
+    "LIBELLE": "Yonne"
+  },
+  {
+    "DEP": "90",
+    "REG": 27,
+    "CHEFLIEU": "90010",
+    "TNCC": 2,
+    "NCC": "TERRITOIRE DE BELFORT",
+    "NCCENR": "Territoire de Belfort",
+    "LIBELLE": "Territoire de Belfort"
+  },
+  {
+    "DEP": "91",
+    "REG": 11,
+    "CHEFLIEU": "91228",
+    "TNCC": 5,
+    "NCC": "ESSONNE",
+    "NCCENR": "Essonne",
+    "LIBELLE": "Essonne"
+  },
+  {
+    "DEP": "92",
+    "REG": 11,
+    "CHEFLIEU": "92050",
+    "TNCC": 4,
+    "NCC": "HAUTS DE SEINE",
+    "NCCENR": "Hauts-de-Seine",
+    "LIBELLE": "Hauts-de-Seine"
+  },
+  {
+    "DEP": "93",
+    "REG": 11,
+    "CHEFLIEU": "93008",
+    "TNCC": 3,
+    "NCC": "SEINE SAINT DENIS",
+    "NCCENR": "Seine-Saint-Denis",
+    "LIBELLE": "Seine-Saint-Denis"
+  },
+  {
+    "DEP": "94",
+    "REG": 11,
+    "CHEFLIEU": "94028",
+    "TNCC": 2,
+    "NCC": "VAL DE MARNE",
+    "NCCENR": "Val-de-Marne",
+    "LIBELLE": "Val-de-Marne"
+  },
+  {
+    "DEP": "95",
+    "REG": 11,
+    "CHEFLIEU": "95500",
+    "TNCC": 2,
+    "NCC": "VAL D OISE",
+    "NCCENR": "Val-d'Oise",
+    "LIBELLE": "Val-d'Oise"
+  },
+  {
+    "DEP": "971",
+    "REG": 1,
+    "CHEFLIEU": "97105",
+    "TNCC": 3,
+    "NCC": "GUADELOUPE",
+    "NCCENR": "Guadeloupe",
+    "LIBELLE": "Guadeloupe"
+  },
+  {
+    "DEP": "972",
+    "REG": 2,
+    "CHEFLIEU": "97209",
+    "TNCC": 3,
+    "NCC": "MARTINIQUE",
+    "NCCENR": "Martinique",
+    "LIBELLE": "Martinique"
+  },
+  {
+    "DEP": "973",
+    "REG": 3,
+    "CHEFLIEU": "97302",
+    "TNCC": 3,
+    "NCC": "GUYANE",
+    "NCCENR": "Guyane",
+    "LIBELLE": "Guyane"
+  },
+  {
+    "DEP": "974",
+    "REG": 4,
+    "CHEFLIEU": "97411",
+    "TNCC": 0,
+    "NCC": "LA REUNION",
+    "NCCENR": "La Réunion",
+    "LIBELLE": "La Réunion"
+  },
+  {
+    "DEP": "976",
+    "REG": 6,
+    "CHEFLIEU": "97608",
+    "TNCC": 0,
+    "NCC": "MAYOTTE",
+    "NCCENR": "Mayotte",
+    "LIBELLE": "Mayotte"
+  }
+]
