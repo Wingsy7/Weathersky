@@ -1,140 +1,133 @@
 <?php
-require "./include/header.inc.php";
-require "./include/functions.inc.php";
-require_once("./include/meteo.php");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// Chargement des données
-$villes = lireCSV("villes.csv");
-$departements = lireCSV("departement.csv");
-$regions = lireCSV("regions.csv");
-$villes = relierCSV($villes, $departements, $regions);
 
-// Initialisation
-$ville = null;
-$lat = null;
-$lon = null;
-$niveau = $_GET['niveau'] ?? 'general';
 
-// Statistiques de recherche
-if (isset($_GET['ville'])) {
-    $villeStatsFile = "stats_villes.json";
-    $stats = file_exists($villeStatsFile) ? json_decode(file_get_contents($villeStatsFile), true) : [];
-    $villeRech = $_GET['ville'];
-    $stats[$villeRech] = ($stats[$villeRech] ?? 0) + 1;
-    file_put_contents($villeStatsFile, json_encode($stats, JSON_PRETTY_PRINT));
+// Active les erreurs
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Enregistrement de la visite
+$ip = $_SERVER['REMOTE_ADDR'];
+$data = @json_decode(file_get_contents("http://ip-api.com/json/$ip"), true); // @ pour éviter warning si API ne répond pas
+
+$ville = $data['city'] ?? 'Inconnue';
+$pays = $data['country'] ?? 'Inconnu';
+
+$file = 'visites.json';
+$visites = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
+
+$visites[] = [
+    'ip' => $ip,
+    'ville' => $ville,
+    'pays' => $pays,
+    'date' => date('Y-m-d H:i:s')
+];
+
+file_put_contents($file, json_encode($visites, JSON_PRETTY_PRINT));
+
+
+if (!file_exists("include/header.inc.php")) {
+    die("Erreur : include/header.inc.php introuvable");
+}
+include("include/header.inc.php");
+echo en_tete("Accueil"); // ✅ Ajout de l'en-tête complet
+echo "<!-- Header inclus -->";
+
+// Vérifier les chemins
+$photosDir = 'photo/';
+if (!is_dir($photosDir)) {
+    error_log("Dossier $photosDir introuvable");
 }
 
-// Détection de la position (ordre : GET > cookie > IP)
-if (isset($_GET['ville'], $_GET['lat'], $_GET['lon'])) {
-    $ville = $_GET['ville'];
-    $lat = $_GET['lat'];
-    $lon = $_GET['lon'];
-    setcookie("derniere_ville", $ville, time() + 7 * 24 * 3600);
-    setcookie("derniere_lat", $lat, time() + 7 * 24 * 3600);
-    setcookie("derniere_lon", $lon, time() + 7 * 24 * 3600);
-} elseif (isset($_COOKIE['derniere_ville'], $_COOKIE['derniere_lat'], $_COOKIE['derniere_lon'])) {
-    $ville = $_COOKIE['derniere_ville'];
-    $lat = $_COOKIE['derniere_lat'];
-    $lon = $_COOKIE['derniere_lon'];
-} else {
-    $location = getBestVisitorLocation();
-    $ville = $location['city'] ?? 'Inconnue';
-    $lat = $location['latitude'];
-    $lon = $location['longitude'];
+$images = [];
+if (is_dir($photosDir)) {
+    $files = scandir($photosDir);
+    foreach ($files as $file) {
+        $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif']) && is_file($photosDir . $file)) {
+            $images[] = $file;
+        }
+    }
 }
+error_log("Images trouvées : " . count($images));
 
-// Récupération météo si coordonnées présentes
-$hasCoord = $lat && $lon && $ville;
-$previsions = $hasCoord ? getPrevisions($lat, $lon) : null;
-
-$style_css = getStyle();
-echo en_tete("Cozma Miroslav - TDs de Développement Web", false);
+$randomImage = !empty($images) ? $images[array_rand($images)] : null;
 ?>
 
-<title>Accueil - Météo</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<link rel="stylesheet" href="style.css" />
+<h1 class="site-title">
+  
+<?php if (file_exists("logo/logo.png")): ?>
+    <a href="index.php">
+        <img src="/logo/logo.png" alt="Logo WeatherSky" class="site-logo">
+    </a>
+<?php else: ?>
+    <?php error_log("Logo photo/logo.png introuvable"); ?>
+<?php endif; ?>
 
-<main>
-  <div class="main-part">
-    <h1>🌤️ Bienvenue sur Météo France</h1>
+    <!-- Icône météo juste avant le texte -->
+    <span class="material-symbols-outlined">partly_cloudy_day</span>
+    WeatherSky
+</h1>
 
-    <!-- Sélection par département -->
-    <section>
-      <h2>📍 Recherche par département</h2>
-      <form method="GET" action="" id="form-departement">
-        <select id="departement" required>
-          <option value="">-- Sélectionnez un département --</option>
-        </select>
-        <input type="hidden" name="ville" id="ville-dep">
-        <input type="hidden" name="lat" id="lat-dep">
-        <input type="hidden" name="lon" id="lon-dep">
-        <select name="niveau" id="niveau-dep">
-          <option value="general" <?= ($niveau === 'general') ? 'selected' : '' ?>>Informations générales</option>
-          <option value="detaille" <?= ($niveau === 'detaille') ? 'selected' : '' ?>>Affichage détaillé</option>
-        </select>
-        <button type="submit">Voir la météo</button>
-      </form>
-    </section>
+    <!-- Formulaire de mode sombre -->
+    <form class="display-mode-form">
+        <input type="checkbox" id="dark-mode" <?= getCurrentTheme() === 'nuit' ? 'checked' : '' ?>>
+        <label for="dark-mode">Mode sombre</label>
+    </form>
 
-    <!-- Recherche par ville -->
-    <section>
-      <h2>🔍 Recherche par ville</h2>
-      <form id="form-ville" method="GET" action="">
-        <select id="region-select" required>
-          <option value="">-- Sélectionnez une région --</option>
-        </select>
-        <select id="departement-select" required disabled>
-          <option value="">-- Sélectionnez un département --</option>
-        </select>
-        <select name="ville" id="ville-select" required disabled>
-          <option value="">-- Sélectionnez une ville --</option>
-        </select>
-        <input type="hidden" name="lat" id="lat-ville">
-        <input type="hidden" name="lon" id="lon-ville">
-        <select name="niveau" id="niveau-ville">
-          <option value="general" <?= ($niveau === 'general') ? 'selected' : '' ?>>Informations générales</option>
-          <option value="detaille" <?= ($niveau === 'detaille') ? 'selected' : '' ?>>Affichage détaillé</option>
-        </select>
-        <button type="submit">Voir la météo</button>
-      </form>
-    </section>
-
-    <!-- Carte interactive -->
-    <section>
-      <h2>🗺️ Carte interactive</h2>
-      <p>🔹 Cliquez sur une zone pour voir la météo du jour</p>
-      <div id="map" style="height: 500px; width: 100%; border: 2px solid #ccc; border-radius: 10px;"></div>
-    </section>
-
-    <!-- Météo -->
-    <section id="previsions">
-      <?php if ($hasCoord && $previsions): ?>
-        <h2>📆 Météo sur 5 jours à <?= htmlspecialchars($ville) ?></h2>
-        <div class="container">
-          <?php for ($i = 0; $i < 5; $i++): ?>
-            <div class="day">
-              <h3><?= date("D d M", strtotime($previsions['jours'][$i])) ?></h3>
-              <p><?= getWeatherIcon($previsions['codes'][$i]) ?></p>
-              <p>🌡️ <?= $previsions['tmin'][$i] ?>° / <?= $previsions['tmax'][$i] ?>°</p>
-              <?php if ($niveau === 'detaille'): ?>
-                <p>🤒 Ressenti : <?= $previsions['ressMin'][$i] ?>° / <?= $previsions['ressMax'][$i] ?>°</p>
-                <p>🌧️ Pluie : <?= $previsions['pluie'][$i] ?> mm (<?= $previsions['pluieH'][$i] ?>h)</p>
-                <p>❄️ Neige : <?= $previsions['neige'][$i] ?> mm</p>
-                <p>💨 Vent : <?= $previsions['vent'][$i] ?> km/h</p>
-                <p>🧭 Direction : <?= $previsions['dirVent'][$i] ?>°</p>
-                <p>☀️ <?= $previsions['sunrise'][$i] ?> - <?= $previsions['sunset'][$i] ?></p>
-                <p>🔆 UV : <?= $previsions['uv'][$i] ?></p>
-              <?php endif; ?>
-            </div>
-          <?php endfor; ?>
+    <!-- Carousel dynamique avec PHP -->
+    <div class="carousel">
+        <div class="carousel-inner">
+            <?php if (empty($images)): ?>
+                <p>Aucune image trouvée pour le carrousel.</p>
+            <?php else: ?>
+                <?php foreach ($images as $image): ?>
+                    <div class="carousel-item">
+                        <img src="<?= htmlspecialchars($photosDir . $image) ?>" alt="Image météo">
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
-      <?php endif; ?>
-    </section>
-  </div>
+    </div>
+
+   
 </main>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="js/script.js"></script>
-<?php require "./include/footer.inc.php"; ?>
+<script>
+    // Mode sombre
+    const darkModeToggle = document.getElementById('dark-mode');
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('change', function() {
+            const theme = document.getElementById('theme');
+            if (theme) {
+                theme.href = this.checked ? 'css/dark-style.css' : 'css/style.css';
+                document.cookie = "theme=" + (this.checked ? "nuit" : "jour") + ";path=/;max-age=" + (30 * 24 * 3600);
+            } else {
+                console.error("Élément #theme introuvable");
+            }
+        });
+    } else {
+        console.error("Élément #dark-mode introuvable");
+    }
 
+    // Carrousel automatique
+    const carouselInner = document.querySelector('.carousel-inner');
+    const items = document.querySelectorAll('.carousel-item');
+    console.log("Nombre d'éléments du carrousel trouvés :", items.length);
+    if (items.length > 0) {
+        let currentIndex = 0;
+        setInterval(() => {
+            console.log("Changement d'image, index :", currentIndex);
+            currentIndex = (currentIndex + 1) % items.length;
+            carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }, 3000);
+    } else {
+        console.error("Aucun élément .carousel-item trouvé");
+    }
+</script>
+
+<?php include("include/footer.inc.php"); ?>

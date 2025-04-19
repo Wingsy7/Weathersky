@@ -1,4 +1,3 @@
-
 <?php
 /* Requires and includes */
 require "./include/header.inc.php";
@@ -23,14 +22,21 @@ $style_css = getStyle(); ?>
                 <li>
                     <h3>🗺️ Carte météo</h3>
                     <ul>
-                        <li><a href="map.php">Voir la carte</a></li>
+                        <li><a href="map.php">Voir la carte interactive</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <h3>🌤️ Prévisions spécifique</h3>
+                    <ul>
+                        <li><a href="meteo2.php">Voir la météo d'une ville</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <h3>📊 Statistiques</h3>
                     <ul>
-                        <li><a href="statistiques.php">Données météo</a></li>
+                        <li><a href="statistique.php">Données météo</a></li>
                     </ul>
                 </li>
 

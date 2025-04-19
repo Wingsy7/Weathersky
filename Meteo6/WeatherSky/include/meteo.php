@@ -65,86 +65,79 @@ function getAirPollution(float $lat, float $lon, string $apiKey): array {
     return [$aqi, $text];
 }
 
-function getPrevisions($lat, $lon) {
+/**
+ * Récupère les prévisions météo et les structure avec des données simplifiées ou détaillées selon le besoin
+ *
+ * @param float $lat
+ * @param float $lon
+ * @param bool $details Si true, retourne les données détaillées, sinon générales
+ * @return array
+ */
+function getPrevisions($lat, $lon, $details = true): array {
     $apiKey = "12ffbe111b3aee23b06aba16d6965d6e"; // Remplace par ta clé API OpenWeather
     $url = "https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&units=metric&appid=$apiKey&lang=fr";
 
     $response = @file_get_contents($url);
-    if ($response === false) {
-        return [];
-    }
+    if ($response === false) return [];
 
     $data = json_decode($response, true);
-    if (!$data || !isset($data['list'])) {
-        return [];
-    }
+    if (!$data || !isset($data['list'])) return [];
 
-    // Préparation des tableaux pour stocker les prévisions
-    $jours = [];
-    $tmin = [];
-    $tmax = [];
-    $ressMin = [];
-    $ressMax = [];
-    $pluie = [];
-    $pluieH = [];
-    $neige = [];
-    $vent = [];
-    $dirVent = [];
-    $sunrise = [];
-    $sunset = [];
-    $uv = [];
-    $codes = [];
-
-    // On regroupe les données par jour (5 jours, toutes les 3 heures)
     $groupes = [];
     foreach ($data['list'] as $item) {
         $date = substr($item['dt_txt'], 0, 10);
         $groupes[$date][] = $item;
     }
 
+    $resultat = [];
     $i = 0;
     foreach ($groupes as $date => $entries) {
-        if ($i >= 5) break;
+        if ($i++ >= 5) break;
 
-        $min = $max = $ressMinJ = $ressMaxJ = null;
-        $pluieJour = $pluieHeure = $neigeJour = $ventJour = $dirVentJ = $uvJ = 0;
-        $codeJour = 800;
+        $min = $max = $ressMin = $ressMax = null;
+        $pluie = $neige = $vent = $dirVent = 0;
+        $code = 800;
 
         foreach ($entries as $e) {
             $temp = $e['main']['temp'];
             $ress = $e['main']['feels_like'];
             $min = is_null($min) ? $temp : min($min, $temp);
             $max = is_null($max) ? $temp : max($max, $temp);
-            $ressMinJ = is_null($ressMinJ) ? $ress : min($ressMinJ, $ress);
-            $ressMaxJ = is_null($ressMaxJ) ? $ress : max($ressMaxJ, $ress);
-
-            $pluieHeure += $e['rain']['3h'] ?? 0;
-            $neigeJour += $e['snow']['3h'] ?? 0;
-            $ventJour += $e['wind']['speed'];
-            $dirVentJ = $e['wind']['deg'];
-            $codeJour = $e['weather'][0]['id'];
+            $ressMin = is_null($ressMin) ? $ress : min($ressMin, $ress);
+            $ressMax = is_null($ressMax) ? $ress : max($ressMax, $ress);
+            $pluie += $e['rain']['3h'] ?? 0;
+            $neige += $e['snow']['3h'] ?? 0;
+            $vent += $e['wind']['speed'];
+            $dirVent = $e['wind']['deg'];
+            $code = $e['weather'][0]['id'];
         }
 
-        $jours[] = $date;
-        $tmin[] = round($min);
-        $tmax[] = round($max);
-        $ressMin[] = round($ressMinJ);
-        $ressMax[] = round($ressMaxJ);
-        $pluie[] = round($pluieHeure, 1);
-        $pluieH[] = count($entries);
-        $neige[] = round($neigeJour, 1);
-        $vent[] = round($ventJour / count($entries));
-        $dirVent[] = $dirVentJ;
-        $sunrise[] = date("H:i", $data['city']['sunrise']);
-        $sunset[] = date("H:i", $data['city']['sunset']);
-        $uv[] = rand(1, 10); // L’API gratuite d'OpenWeather ne fournit pas l’UV
-        $codes[] = $codeJour;
-
-        $i++;
+        if ($details) {
+            $resultat[] = [
+                'date' => $date,
+                'tmin' => round($min),
+                'tmax' => round($max),
+                'ressMin' => round($ressMin),
+                'ressMax' => round($ressMax),
+                'pluie' => round($pluie, 1),
+                'neige' => round($neige, 1),
+                'vent' => round($vent / count($entries)),
+                'dirVent' => $dirVent,
+                'sunrise' => date("H:i", $data['city']['sunrise']),
+                'sunset' => date("H:i", $data['city']['sunset']),
+                'uv' => rand(1, 10),
+                'code' => $code
+            ];
+        } else {
+            $resultat[] = [
+                'date' => $date,
+                'tmin' => round($min),
+                'tmax' => round($max),
+                'code' => $code
+            ];
+        }
     }
 
-    return compact('jours', 'tmin', 'tmax', 'ressMin', 'ressMax', 'pluie', 'pluieH', 'neige', 'vent', 'dirVent', 'sunrise', 'sunset', 'uv', 'codes');
+    return $resultat;
 }
-
-
 ?>
