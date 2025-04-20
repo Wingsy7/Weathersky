@@ -2,6 +2,10 @@
 // ========================================
 // 📅 UTILITAIRES DATES
 // ========================================
+
+/**
+ * Retourne la date actuelle au format YYYY-MM-DD
+ */
 function getTodayDate() {
     return date("Y-m-d");
 }
@@ -9,21 +13,29 @@ function getTodayDate() {
 // ========================================
 // 📷 API NASA APOD
 // ========================================
+
+/**
+ * Récupère l'image du jour (APOD) via l'API de la NASA
+ * Retourne un bloc HTML contenant l'image ou la vidéo
+ */
 function getAPODImage(): string {
-    $api_key = "DEMO_KEY"; // À remplacer par votre propre clé
+    $api_key = "DEMO_KEY"; // À remplacer par votre propre clé API
     $date = getTodayDate();
     $url = "https://api.nasa.gov/planetary/apod?api_key=$api_key&date=$date";
 
+    // Récupération de la réponse JSON de l’API
     $response = @file_get_contents($url);
     if ($response === false) {
         return '<p>Impossible de récupérer l’image du jour. Veuillez réessayer plus tard.</p>';
     }
 
+    // Décodage des données JSON
     $data = json_decode($response, true);
     if (!$data || !isset($data['media_type']) || !isset($data['url'])) {
         return '<p>Données invalides reçues depuis l’API NASA.</p>';
     }
 
+    // Si le contenu est une vidéo
     if ($data['media_type'] === 'video') {
         return '
         <div class="apod-video">
@@ -32,6 +44,7 @@ function getAPODImage(): string {
             <p>' . htmlspecialchars($data['explanation'] ?? '') . '</p>
         </div>';
     } else {
+        // Sinon, afficher l'image
         return '
         <figure>
             <img src="' . htmlspecialchars($data['url']) . '" alt="APOD Image" class="apodNasa">
@@ -43,6 +56,10 @@ function getAPODImage(): string {
 // ========================================
 // 🌍 GÉOLOCALISATION
 // ========================================
+
+/**
+ * Détecte l’adresse IP du visiteur
+ */
 function getUserIP() {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         return $_SERVER['HTTP_CLIENT_IP'];
@@ -53,6 +70,9 @@ function getUserIP() {
     }
 }
 
+/**
+ * Récupère la géolocalisation via geoplugin (format XML)
+ */
 function getVisitorLocationXML() {
     $api_url = 'http://www.geoplugin.net/xml.gp?ip=' . getUserIP();
     $response = @file_get_contents($api_url);
@@ -70,6 +90,9 @@ function getVisitorLocationXML() {
     ];
 }
 
+/**
+ * Récupère la géolocalisation via ipinfo.io (format JSON)
+ */
 function getVisitorLocationJSON() {
     $user_ip = getUserIP();
     $api_url = "https://ipinfo.io/$user_ip/json";
@@ -91,6 +114,9 @@ function getVisitorLocationJSON() {
     ];
 }
 
+/**
+ * Récupère la géolocalisation via WhatIsMyIP (WIP, format XML)
+ */
 function getVisitorLocationWIP() {
     $user_ip = getUserIP();
     $api_key = "e964f74aadfe25702230dfcbac03a675";
@@ -113,6 +139,9 @@ function getVisitorLocationWIP() {
     return [];
 }
 
+/**
+ * Détermine la meilleure localisation disponible parmi les 3 méthodes
+ */
 function getBestVisitorLocation() {
     $location = getVisitorLocationXML();
 
@@ -130,6 +159,10 @@ function getBestVisitorLocation() {
 // ========================================
 // 📁 FICHIERS CSV
 // ========================================
+
+/**
+ * Lit un fichier CSV et retourne un tableau associatif
+ */
 function lireCSV($fichier, $separateur = ",") {
     $resultat = [];
 
@@ -150,6 +183,9 @@ function lireCSV($fichier, $separateur = ",") {
     return $resultat;
 }
 
+/**
+ * Relie les données de villes avec leurs départements et régions respectifs
+ */
 function relierCSV($villes, $departements, $regions) {
     $departements_par_code = [];
     foreach ($departements as $dep) {
@@ -172,6 +208,9 @@ function relierCSV($villes, $departements, $regions) {
     return $villes;
 }
 
+/**
+ * Récupère le nom de la région à partir d'une ville
+ */
 function getRegionFromVille($nomVille, $villes, $departements, $regions) {
     $nomVille = strtolower($nomVille);
     $villes = relierCSV($villes, $departements, $regions);
@@ -185,6 +224,9 @@ function getRegionFromVille($nomVille, $villes, $departements, $regions) {
     return "Région inconnue";
 }
 
+/**
+ * Retourne les infos de la préfecture d’un département donné
+ */
 function getPrefectureParDepartement($codeDept, $villes) {
     foreach ($villes as $ville) {
         if (
@@ -201,6 +243,10 @@ function getPrefectureParDepartement($codeDept, $villes) {
 // ========================================
 // 🧭 INTERFACE UTILISATEUR
 // ========================================
+
+/**
+ * Affiche le menu de navigation en mettant en surbrillance la page active
+ */
 function afficherMenu($pageActive) {
     $pages = [
         "index" => ["Accueil", "🏠", "index.php"],
@@ -216,4 +262,5 @@ function afficherMenu($pageActive) {
     echo '</ul></nav>';
 }
 ?>
+
 

@@ -1,10 +1,10 @@
 <?php
-/* Requires and includes */
+// Inclusion du header et des fonctions
 require "./include/header.inc.php";
-?>
 
-<?php echo en_tete("Plan du site", false);
-$style_css = getStyle(); ?>
+// Génération de l'en-tête avec fermeture automatique du </head> (pas besoin de false ici)
+echo en_tete("Plan du site");
+?>
 
 <main>
     <div class="main-part">
@@ -12,6 +12,7 @@ $style_css = getStyle(); ?>
 
         <section>
             <ul>
+                <!-- Accueil -->
                 <li>
                     <h3>🏠 Accueil</h3>
                     <ul>
@@ -19,6 +20,7 @@ $style_css = getStyle(); ?>
                     </ul>
                 </li>
 
+                <!-- Carte météo -->
                 <li>
                     <h3>🗺️ Carte météo</h3>
                     <ul>
@@ -26,13 +28,15 @@ $style_css = getStyle(); ?>
                     </ul>
                 </li>
 
+                <!-- Météo spécifique -->
                 <li>
-                    <h3>🌤️ Prévisions spécifique</h3>
+                    <h3>🌤️ Prévisions spécifiques</h3>
                     <ul>
                         <li><a href="meteo2.php">Voir la météo d'une ville</a></li>
                     </ul>
                 </li>
 
+                <!-- Statistiques -->
                 <li>
                     <h3>📊 Statistiques</h3>
                     <ul>
@@ -40,10 +44,11 @@ $style_css = getStyle(); ?>
                     </ul>
                 </li>
 
+                <!-- Page technique -->
                 <li>
                     <h3>🔧 Projet technique</h3>
                     <ul>
-                        <li><a href="./projet/tech.php">Page technique du projet</a></li>
+                        <li><a href="tech.php">Page technique du projet</a></li>
                     </ul>
                 </li>
             </ul>
@@ -51,6 +56,7 @@ $style_css = getStyle(); ?>
     </div>
 </main>
 
-<?php 
+<?php
+// Inclusion du pied de page
 require "./include/footer.inc.php";
 ?>

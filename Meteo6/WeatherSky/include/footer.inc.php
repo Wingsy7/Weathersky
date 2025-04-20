@@ -1,6 +1,6 @@
 <footer>
     <p class="copyright">
-        Cozma Miroslav & Deborah Piaki, étudiant·e·s à 
+        Cozma Miroslav &amp; Deborah Piaki, étudiant·e·s à 
         <a href="https://www.cyu.fr/">Cergy Université</a>.
     </p>
     <p>Dernière mise à jour: <time datetime="2025-03-10">11/03/2025</time></p>

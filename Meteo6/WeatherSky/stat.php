@@ -7,7 +7,7 @@ if (($handle = fopen($fichier, 'r')) !== false) {
     // Ignorer l'en-tête
     fgetcsv($handle);
     while (($data = fgetcsv($handle)) !== false) {
-        $ville = $data[0];
+        $ville = htmlspecialchars($data[0]); // Protection contre injection HTML
         $villes[$ville] = ($villes[$ville] ?? 0) + 1;
     }
     fclose($handle);
@@ -18,30 +18,29 @@ $labels = array_keys($villes);
 $valeurs = array_values($villes);
 ?>
 
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Statistiques des villes</title>
-    <style>
-        .bar {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            margin: 5px 0;
-        }
-    </style>
-</head>
+<!-- Pas de <html> ou <head> ici, car ce fichier est intégré dans une structure globale -->
+<!-- On suppose que le header, doctype, etc. sont déjà inclus avant -->
+
+<!-- Contenu principal -->
+<section>
     <h1>Statistiques des villes consultées</h1>
-    <?php
-    if (!empty($villes)) {
-        $max = max($valeurs); // Pour normaliser la largeur des barres
-        foreach ($villes as $ville => $count) {
-            $width = ($count / $max) * 300; // Largeur max de 300px
-            echo "<div class='bar' style='width: {$width}px;'>{$ville} ({$count})</div>";
-        }
-    } else {
-        echo "<p>Aucune donnée disponible.</p>";
-    }
-    ?>
-    <p><a href="index.php">Retour</a></p>
-</html>
+
+    <?php if (!empty($villes)) : ?>
+        <?php $max = max($valeurs); ?>
+        <div class="bars">
+            <?php foreach ($villes as $ville => $count) : ?>
+                <?php
+                $width = ($count / $max) * 300; // Largeur max en px
+                ?>
+                <div class="bar" style="width: <?= (int)$width ?>px;">
+                    <span><?= $ville ?></span> (<?= $count ?>)
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else : ?>
+        <p>Aucune donnée disponible.</p>
+    <?php endif; ?>
+
+    <p><a href="index.php">⬅ Retour</a></p>
+</section>
+ 

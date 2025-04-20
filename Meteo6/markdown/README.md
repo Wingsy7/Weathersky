@@ -9,7 +9,8 @@
 - Chart.js  
 - API OpenWeatherMap  
 - API NASA (APOD)  
-- API GeoPlugin (géolocalisation IP)
+- API GeoPlugin (géolocalisation IP)  
+- API Geoapify (infos trafic)
 
 ---
 
@@ -22,13 +23,13 @@ Le projet s’appuie sur :
 - Une navigation interactive par carte (Leaflet)
 - Des données météo en temps réel (OpenWeatherMap)
 - Des statistiques enregistrées côté serveur (CSV/JSON)
-- Et des API externes complémentaires (NASA APOD, géolocalisation IP)
+- Et des API externes complémentaires (NASA APOD, géolocalisation IP, trafic routier)
 
 ---
 
 ## 🌍 Accès au site en ligne
 
-🔗 **Site en ligne** : [https://piaki.alwaysdata.net](https://piaki.alwaysdata.net)
+🔗 **Site en ligne** : [https://piaki.alwaysdata.net](https://piaki.alwaysdata.net)  
 🔗 **Site en ligne** : [https://cozma.alwaysdata.net](https://cozma.alwaysdata.net)
 
 ---
@@ -43,12 +44,14 @@ Le projet s’appuie sur :
   - Météo du jour + 5 jours
   - Température, humidité, vent, icône météo
 - 📊 **Statistiques d’utilisation** :
-  - Enregistrement des consultations (villes, départements, clics)
+  - Enregistrement des consultations (villes)
   - Affichage graphique avec Chart.js (`statistique.php`)
 - 📸 **Image aléatoire** :
   - À chaque visite de l’accueil (`index.php`), une image météo différente s’affiche
 - 🧭 **Géolocalisation approximative** :
   - Détection IP et affichage des données météo (en JSON/XML)
+- 🚗 **Infos Trafic personnalisées** :
+  - Calcul de distance et durée avec Geoapify Routing selon la dernière ville consultée
 - 🍪 **Personnalisation utilisateur** :
   - Cookie pour la dernière ville consultée
   - Choix du thème (jour/nuit)
@@ -68,33 +71,39 @@ stats/                → CSV des consultations
 
 ---
 
+
+---
+
 ## 📊 Statistiques
 
-Les interactions des utilisateurs sont automatiquement enregistrées (recherches de villes, départements, clics sur la carte)  
-et visualisées sous forme de graphiques dans `statistique.php` grâce à Chart.js.
+Les interactions des utilisateurs sont automatiquement enregistrées côté serveur (recherches de villes, clics carte, etc.).  
+Ces données sont transformées en fichiers JSON puis affichées sous forme de **graphiques interactifs avec Chart.js** dans `statistique.php`.
 
 ---
 
 ## 🔌 APIs & Librairies utilisées
 
-- [OpenWeatherMap API](https://openweathermap.org/) – météo actuelle et prévisions
-- [Leaflet.js](https://leafletjs.com/) – carte interactive
-- [Chart.js](https://www.chartjs.org/) – graphiques statistiques
-- [NASA APOD API](https://api.nasa.gov/) – image du jour
-- [GeoPlugin API](https://www.geoplugin.com/) – géolocalisation IP
+- [OpenWeatherMap API](https://openweathermap.org/) – météo actuelle et prévisions  
+- [Leaflet.js](https://leafletjs.com/) – carte interactive  
+- [Chart.js](https://www.chartjs.org/) – graphiques statistiques  
+- [NASA APOD API](https://api.nasa.gov/) – image du jour  
+- [GeoPlugin API](https://www.geoplugin.com/) – géolocalisation IP  
+- [Geoapify Routing API](https://www.geoapify.com/routing-api) – calcul trafic (distance, durée estimée)
 
 ---
 
 ## 💡 Utilisation
 
-1. Cloner le projet ou copier les fichiers sur un serveur PHP 8+
-2. Vérifier que les dossiers `data/` et `stats/` sont accessibles en écriture
+1. Cloner le projet ou copier les fichiers sur un serveur PHP 8+  
+2. Vérifier que les dossiers `data/` et `stats/` sont accessibles en écriture  
 3. Ouvrir `index.php` dans un navigateur pour démarrer  
-4. Ou visiter directement : [https://piaki.alwaysdata.net](https://piaki.alwaysdata.net)
+4. Ou visiter directement :  
+   🔗 [https://piaki.alwaysdata.net](https://piaki.alwaysdata.net)
 
 ---
 
 ## 👥 Auteurs
 
-Projet réalisé par **[Deborah piaki & COZMA Miroslav]**  
+Projet réalisé par **Deborah Piaki** & **Miroslav Cozma**  
 Dans le cadre du cours de **développement web dynamique**.
+
