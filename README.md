@@ -1,48 +1,43 @@
-# 🌦️ Projet : Météo Interactive Web  
-**Technologies utilisées :** HTML, CSS, JavaScript, PHP 8, JSON, Chart.js, Leaflet.js, API Open-Meteo  
+# WeatherSky
 
-## 🌐 Contexte du projet  
-Ce projet web a pour but d’afficher les **prévisions météo sur 5 jours**, la **météo actuelle** et diverses **statistiques d’utilisation**, en s’appuyant sur les coordonnées GPS issues de fichiers JSON (villes, départements, régions) et l’API [Open-Meteo](https://open-meteo.com).  
-Il permet aussi une **recherche par ville**, une **navigation via une carte interactive**, ainsi que l’affichage dynamique de statistiques (graphiques) et d’infos complémentaires (trafic, news, bourse).  
+WeatherSky is a weather-focused web application that displays current conditions and 5-day forecasts for French cities, departments and regions.
 
-## 🧠 Fonctionnalités principales
+The project combines PHP rendering, JavaScript interactions, local geographic datasets and external weather data to build a practical student web app.
 
-- Recherche météo par **nom de ville** avec autocomplétion.
-- Recherche météo par **département** (prend une ville au hasard dans le département).
-- Carte interactive : clic sur un point → popup météo + prévisions.
-- Affichage des prévisions météo sur **5 jours** (température et icône météo).
-- Enregistrement des statistiques (nombre de recherches ville, département, clics carte).
-- Page dédiée aux **statistiques** avec **Chart.js**.
-- Intégration de modules supplémentaires : **actualités récentes**, **trafic**, **cours de la bourse** *(à venir)*.
+## Highlights
 
-## 📁 Structure du projet
+- Search weather by city, department or region
+- Interactive map powered by Leaflet
+- 5-day forecast with general and detailed views
+- Local usage statistics stored in JSON files
+- PHP includes for shared layout and weather utilities
 
-- `index.php` : page d’accueil (météo, carte, formulaire).
-- `meteo.php` : affiche les prévisions météo détaillées.
-- `stats.php` : affiche les statistiques sous forme de graphiques.
-- `data/villes.json`, `departements.json`, `regions.json` : fichiers de données locales.
-- `script.js` : logique principale côté client (API, carte, événements).
-- `style.css` : design responsive et moderne.
-- `stats_villes.json`, `stats_departements.json`, `stats_map.json` : fichiers de statistiques.
+## Tech Stack
 
-## 📊 Statistiques
+- PHP
+- HTML, CSS and JavaScript
+- Leaflet.js
+- Chart.js
+- Open-Meteo API
+- CSV and JSON geographic datasets
 
-Générées et mises à jour automatiquement selon l'interaction de l'utilisateur. Affichées dans `stats.php` grâce à **Chart.js**.
+## Repository Structure
 
-## 🗺️ APIs & Librairies utilisées
+- `WeatherSky/index.php`: main entry page and forecast flow
+- `WeatherSky/map.php`: interactive map page
+- `WeatherSky/stats.php` and `WeatherSky/statistique.php`: statistics views
+- `WeatherSky/include/`: shared PHP components and helpers
+- `WeatherSky/js/script.js`: client-side interactions
+- `WeatherSky/css/`: application styles
+- `WeatherSky/data/`: cities, departments and regions datasets
 
-- [Open-Meteo API](https://open-meteo.com) pour météo actuelle et prévisions.
-- [Leaflet.js](https://leafletjs.com) pour la carte interactive.
-- [Chart.js](https://www.chartjs.org) pour les graphiques statistiques.
-- API info/news/trafic/bourse *(en cours d’intégration)*.
+## What This Project Shows
 
-## 💡 Utilisation
+- Integration of an external API into a usable web interface
+- Handling of search, cookies and geolocation fallback in PHP
+- Use of mapping and chart libraries to improve UX
+- Work with structured local datasets and lightweight analytics
 
-- Cloner le projet ou copier les fichiers sur un serveur compatible PHP.
-- S'assurer que les fichiers JSON sont bien accessibles dans le dossier `data/`.
-- Lancer `index.php` depuis un navigateur.
+## Notes
 
-## 👥 Auteurs
-
-Projet réalisé par **[Ton Nom ou Groupe]**,  
-dans le cadre du cours/projet de développement web dynamique.
+The repository contains the current `WeatherSky/` application as well as some older course artifacts kept for reference.
